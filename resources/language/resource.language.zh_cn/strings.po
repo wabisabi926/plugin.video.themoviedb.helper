@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XBMC-Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
-"POT-Creation-Date: 2014-10-26 17:05+0000\n"
+"POT-Creation-Date: 2014-10-26 21:05+0000\n"
 "PO-Revision-Date: 2026-04-11 17:04+0800\n"
 "Last-Translator: Wabisabi926\n"
 "Language-Team: LANGUAGE\n"
@@ -2907,7 +2907,7 @@ msgstr "Token"
 
 #: /resources/lib/traktapi.py
 msgctxt "#32012"
-msgid "You must authenticate your Trakt account 到 use this feature."
+msgid "You must authenticate your Trakt account to use this feature."
 msgstr "你必须验证你的 Trakt 帐户才能使用此功能。"
 
 #: /resources/settings.xml
@@ -2927,13 +2927,13 @@ msgstr "API 密钥"
 
 #: /resources/settings.xml
 msgctxt "#32019"
-msgid "Fanart。tv client key"
-msgstr "Fanart。tv client 密钥"
+msgid "Fanart.tv client key"
+msgstr "Fanart.tv client 密钥"
 
 #: /resources/settings.xml
 msgctxt "#32021"
-msgid "Use fanart。tv for plugin artwork (slower)"
-msgstr "将 fanart。tv 用于艺术图（较慢）"
+msgid "Use fanart.tv for plugin artwork (slower)"
+msgstr "将 fanart.tv 用于艺术图（较慢）"
 
 #: /resources/settings.xml
 msgctxt "#32023"
