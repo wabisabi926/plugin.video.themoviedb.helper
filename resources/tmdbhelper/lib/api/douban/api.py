@@ -106,14 +106,13 @@ def _frodo_search_by_imdb(imdbid):
 
 class DoubanAPI(object):
     """
-    Fetches Douban rating by IMDb ID. Returns letterboxd_rating / letterboxd_votes
-    so existing skins display Douban without modification.
+    Fetches Douban rating by IMDb ID. Returns douban_rating / douban_votes
     """
 
     def get_ratings(self, imdb_id):
         """
         Get rating for a movie by IMDb ID.
-        Returns dict with letterboxd_rating (0-100 int) and letterboxd_votes (int),
+        Returns dict with douban_rating (0-100 int) and douban_votes (int),
         or {} on failure.
         """
         if not imdb_id or not (isinstance(imdb_id, str) and imdb_id.startswith("tt")):
@@ -137,9 +136,9 @@ class DoubanAPI(object):
         except (TypeError, ValueError):
             return {}
         # Store as 0-100 scale (same as IMDB/Trakt) for /10 display
-        letterboxd_rating = int(round(avg_float * 10))
-        letterboxd_votes = int(num_raters) if num_raters is not None else 0
+        douban_rating = int(round(avg_float * 10))
+        douban_votes = int(num_raters) if num_raters is not None else 0
         return {
-            "letterboxd_rating": letterboxd_rating,
-            "letterboxd_votes": letterboxd_votes,
+            "douban_rating": douban_rating,
+            "douban_votes": douban_votes,
         }
