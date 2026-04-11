@@ -335,6 +335,12 @@ RATINGS_COLUMNS = {
     'letterboxd_votes': {
         'data': 'INTEGER',
     },
+    'douban_rating': {
+        'data': 'INTEGER',
+    },
+    'douban_votes': {
+        'data': 'INTEGER',
+    },
     'mdblist_rating': {
         'data': 'INTEGER',
     },
