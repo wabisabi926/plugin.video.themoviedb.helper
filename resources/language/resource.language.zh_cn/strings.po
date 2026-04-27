@@ -2111,6 +2111,11 @@ msgctxt "#32398"
 msgid "Medium"
 msgstr "中等"
 
+#: /resources/tmdbhelper/lib/script/method/image_functions.py
+msgctxt "#32399"
+msgid "Retrieving Artwork"
+msgstr "正在获取艺术图"
+
 #: /resources/settings.xml
 msgctxt "#32400"
 msgid "Play local Kodi library files"
