@@ -4,10 +4,11 @@ Douban rating API for TMDB Helper.
 Based on kfstorm/douban-idatabase architecture.
 
 Features:
-- Multiple API sources (Rexxar, Legacy, Frodo)
+- Multiple API sources (Rexxar, Legacy, Frodo, Mobile Web)
 - Rate limiting with random delay
 - Local SQLite caching
 - ID mapping (Douban ID <-> IMDb ID)
+- Enhanced anti-blocking measures
 """
 
 import base64
@@ -16,6 +17,7 @@ import hmac
 import json
 import random
 import time
+import uuid
 from datetime import datetime
 from urllib.parse import quote, urlencode, urlparse
 from urllib.request import Request, urlopen
@@ -30,40 +32,87 @@ FRODO_SEARCH_TV_PATH = "/search/tv"
 FRODO_API_KEY = "0dad551ec0f84ed02907ff5c42e8ec70"
 FRODO_API_SECRET = "bf7dddc7c9cfe6f7"
 
-FRODO_RATING_PROBABILITY = 0.3
-REQUEST_TIMEOUT = 10
-MAX_RETRIES = 3
-RETRY_BASE_DELAY = 1
+MOBILE_WEB_SEARCH_URL = "https://m.douban.com/rexxar/api/v2/search/weixin?q={query}&count=1"
 
-RATE_LIMIT_MIN_DELAY = 0.5
-RATE_LIMIT_MAX_DELAY = 3.0
+FRODO_RATING_PROBABILITY = 0.3
+REQUEST_TIMEOUT = 15
+MAX_RETRIES = 5
+RETRY_BASE_DELAY = 2
+
+RATE_LIMIT_MIN_DELAY = 1.0
+RATE_LIMIT_MAX_DELAY = 4.0
 
 USER_AGENTS = [
     "api-client/1 com.douban.frodo/7.22.0.beta9(231) Android/23 product/Mate 40 vendor/HUAWEI model/Mate 40 brand/HUAWEI  rom/android  network/wifi  platform/AndroidPad",
     "api-client/1 com.douban.frodo/7.18.0(230) Android/22 product/MI 9 vendor/Xiaomi model/MI 9 brand/Android  rom/miui6  network/wifi  platform/mobile nd/1",
     "api-client/1 com.douban.frodo/7.1.0(205) Android/29 product/perseus vendor/Xiaomi model/Mi MIX 3  rom/miui6  network/wifi  platform/mobile nd/1",
+    "api-client/1 com.douban.frodo/7.25.0(234) Android/30 product/OnePlus8 vendor/OnePlus model/OnePlus8 brand/OnePlus  rom/android  network/wifi  platform/mobile nd/1",
+    "api-client/1 com.douban.frodo/7.20.0(228) Android/28 product/Pixel 4 vendor/Google model/Pixel 4 brand/Google  rom/android  network/wifi  platform/mobile nd/1",
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.3",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (Linux; Android 13; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.184 Mobile Safari/537.36",
+    "Mozilla/5.0 (iPad; CPU OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
 ]
-COOKIE_BID = "bid=J9zb1zA5sJc"
+
+COOKIES = [
+    "bid=J9zb1zA5sJc",
+    "bid=xy3z8k7L0Md",
+    "bid=abc123DEF456",
+    "bid=789ghiJKL012",
+    "bid=MNOP345qrstu",
+]
 
 COMMON_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.3",
     "Accept": "application/json, text/plain, */*",
     "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
     "Accept-Encoding": "gzip, deflate, br",
     "Connection": "keep-alive",
     "Referer": "https://movie.douban.com/",
-    "Origin": "https://movie.douban.com"
+    "Origin": "https://movie.douban.com",
+    "Sec-Ch-Ua": '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+    "Sec-Ch-Ua-Mobile": "?0",
+    "Sec-Ch-Ua-Platform": '"Windows"',
+    "Sec-Fetch-Dest": "empty",
+    "Sec-Fetch-Mode": "cors",
+    "Sec-Fetch-Site": "same-site",
 }
+
+MOBILE_HEADERS = {
+    "Accept": "application/json",
+    "Accept-Language": "zh-CN,zh;q=0.9",
+    "Accept-Encoding": "gzip, deflate",
+    "Connection": "keep-alive",
+    "Referer": "https://m.douban.com/",
+    "X-Requested-With": "XMLHttpRequest",
+}
+
+
+def _generate_bid():
+    return "bid=" + str(uuid.uuid4()).replace("-", "")[:11]
+
+
+def _get_random_user_agent():
+    return random.choice(USER_AGENTS)
+
+
+def _get_random_cookie():
+    return random.choice(COOKIES)
 
 
 class _RateLimiter:
     _delays = {}
+    _last_request = {}
 
     @classmethod
     def wait(cls, host):
-        delay = random.uniform(RATE_LIMIT_MIN_DELAY, RATE_LIMIT_MAX_DELAY)
-        time.sleep(delay)
+        now = time.time()
+        last_req = cls._last_request.get(host, 0)
+        min_interval = random.uniform(RATE_LIMIT_MIN_DELAY, RATE_LIMIT_MAX_DELAY)
+        elapsed = now - last_req
+        if elapsed < min_interval:
+            time.sleep(min_interval - elapsed)
+        cls._last_request[host] = time.time()
 
 
 _rate_limiter = _RateLimiter()
@@ -83,9 +132,11 @@ def _frodo_sign(url, ts, method="GET"):
 def _normalize_rating(r):
     if not r:
         return None, None, None
-    average = r.get("average") or r.get("value")
-    num_raters = r.get("numRaters") or r.get("count")
+    average = r.get("average") or r.get("value") or r.get("rating")
+    num_raters = r.get("numRaters") or r.get("count") or r.get("votes")
     douban_id = r.get("subject_id") or r.get("id")
+    if isinstance(douban_id, int):
+        douban_id = str(douban_id)
     return average, num_raters, douban_id
 
 
@@ -94,12 +145,20 @@ def _make_request_with_retry(url, headers=None, data=None, method="GET"):
         try:
             host = urlparse(url).netloc
             _rate_limiter.wait(host)
-            req = Request(url, headers=headers or {}, data=data)
+            req = Request(url, headers=headers or {}, data=data, method=method)
             with urlopen(req, timeout=REQUEST_TIMEOUT) as resp:
-                return json.loads(resp.read().decode("utf-8"))
+                content_encoding = resp.headers.get("Content-Encoding", "")
+                content = resp.read()
+                if "gzip" in content_encoding:
+                    import gzip
+                    content = gzip.decompress(content)
+                elif "deflate" in content_encoding:
+                    import zlib
+                    content = zlib.decompress(content)
+                return json.loads(content.decode("utf-8"))
         except Exception as e:
             if attempt < MAX_RETRIES - 1:
-                delay = RETRY_BASE_DELAY * (2 ** attempt)
+                delay = RETRY_BASE_DELAY * (2 ** attempt) + random.uniform(0, 1)
                 time.sleep(delay)
             else:
                 raise
@@ -108,7 +167,8 @@ def _make_request_with_retry(url, headers=None, data=None, method="GET"):
 def _rexxar_api_lookup(douban_id):
     url = DOUBAN_REXXAR_API_URL.format(douban_id)
     headers = COMMON_HEADERS.copy()
-    headers["User-Agent"] = random.choice(USER_AGENTS)
+    headers["User-Agent"] = _get_random_user_agent()
+    headers["Cookie"] = _get_random_cookie()
     data = _make_request_with_retry(url, headers=headers)
     return data
 
@@ -118,8 +178,9 @@ def _legacy_imdb_lookup(imdbid):
     post_data = urlencode({"apikey": LEGACY_API_KEY}).encode("utf-8")
     headers = {
         "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-        "User-Agent": random.choice(USER_AGENTS),
-        "Cookie": COOKIE_BID,
+        "User-Agent": _get_random_user_agent(),
+        "Cookie": _get_random_cookie(),
+        "Accept": "application/json",
     }
     data = _make_request_with_retry(url, headers=headers, data=post_data, method="POST")
     rating = data.get("rating") or {}
@@ -140,7 +201,20 @@ def _frodo_search(query, search_type='movie'):
         "os_rom": "android",
     }
     url = path + "?" + urlencode(params)
-    headers = {"User-Agent": random.choice(USER_AGENTS)}
+    headers = {
+        "User-Agent": _get_random_user_agent(),
+        "Cookie": _get_random_cookie(),
+        "Accept": "application/json",
+    }
+    data = _make_request_with_retry(url, headers=headers)
+    return data
+
+
+def _mobile_web_search(query):
+    url = MOBILE_WEB_SEARCH_URL.format(query=quote(query))
+    headers = MOBILE_HEADERS.copy()
+    headers["User-Agent"] = _get_random_user_agent()
+    headers["Cookie"] = _get_random_cookie()
     data = _make_request_with_retry(url, headers=headers)
     return data
 
@@ -168,6 +242,34 @@ def _frodo_search_by_imdb(imdbid, search_type='movie'):
     rating = subject.get("rating") or {}
     avg, count, douban_id = _normalize_rating(rating)
     return {"average": avg, "numRaters": count, "douban_id": douban_id}
+
+
+def _mobile_search_by_imdb(imdbid):
+    data = _mobile_web_search(imdbid)
+    items = data.get("items") or []
+    if not items:
+        raise ValueError("Mobile search returned no results")
+    first_item = items[0]
+    subject = first_item.get("subject") or first_item
+    rating = subject.get("rating") or {}
+    avg, count, douban_id = _normalize_rating(rating)
+    return {"average": avg, "numRaters": count, "douban_id": douban_id}
+
+
+def _fallback_search(imdbid, search_type='movie'):
+    methods = [
+        lambda: _frodo_search_by_imdb(imdbid, search_type),
+        lambda: _legacy_imdb_lookup(imdbid),
+        lambda: _mobile_search_by_imdb(imdbid),
+    ]
+    for i, method in enumerate(methods):
+        try:
+            return method()
+        except Exception as e:
+            if i < len(methods) - 1:
+                time.sleep(random.uniform(1, 2))
+                continue
+            raise
 
 
 class DoubanCache:
@@ -226,6 +328,8 @@ class DoubanAPI:
         self._refresh_probability = 0.05
         self._refresh_cooldown = 86400
         self._last_refresh = 0
+        self._consecutive_failures = 0
+        self._failure_cooldown = 0
 
     @property
     def cache(self):
@@ -238,6 +342,8 @@ class DoubanAPI:
         if current_time - self._last_refresh < self._refresh_cooldown:
             return False
         if random.random() > self._refresh_probability:
+            return False
+        if current_time < self._failure_cooldown:
             return False
         self._last_refresh = current_time
         return True
@@ -272,14 +378,13 @@ class DoubanAPI:
                 "douban_id": cached['douban_id'],
             }
         try:
-            if random.random() < FRODO_RATING_PROBABILITY:
-                try:
-                    raw = _frodo_search_by_imdb(imdb_id, search_type)
-                except Exception:
-                    raw = _legacy_imdb_lookup(imdb_id)
-            else:
-                raw = _legacy_imdb_lookup(imdb_id)
+            raw = _fallback_search(imdb_id, search_type)
+            self._consecutive_failures = 0
+            self._failure_cooldown = 0
         except Exception:
+            self._consecutive_failures += 1
+            if self._consecutive_failures >= 3:
+                self._failure_cooldown = time.time() + 3600
             if cached:
                 return {
                     "douban_rating": int(cached['rating'] * 10),
@@ -382,6 +487,7 @@ class DoubanAPI:
                 results[key] = self.get_ratings_by_title(item['title'], item['year'], item.get('tmdb_type', 'movie'))
             else:
                 results[key] = {}
+            time.sleep(random.uniform(0.5, 1.5))
         return results
 
     def get_stats(self):
