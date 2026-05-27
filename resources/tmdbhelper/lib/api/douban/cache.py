@@ -7,9 +7,9 @@ import os
 import sqlite3
 from datetime import datetime, timedelta
 
-CACHE_EXPIRE_DAYS_MOVIE = 7
-CACHE_EXPIRE_DAYS_TV = 14
-CACHE_EXPIRE_DAYS_HOT = 3
+CACHE_EXPIRE_DAYS_MOVIE = 30
+CACHE_EXPIRE_DAYS_TV = 30
+CACHE_EXPIRE_DAYS_HOT = 15
 
 
 class DoubanCacheDatabase:
