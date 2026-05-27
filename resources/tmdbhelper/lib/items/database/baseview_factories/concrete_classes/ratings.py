@@ -122,8 +122,11 @@ class RatingsDict(BaseList):
             except (KeyError, TypeError, IndexError, ValueError):
                 pass
         try:
-            title = self.get_listitem().get('title') or self.get_listitem().get('label')
-            year = self.get_listitem().get('year')
+            listitem = self.get_listitem()
+            if not listitem:
+                return {}
+            title = listitem.get('title') or listitem.get('label')
+            year = listitem.get('year')
             if title:
                 return self.common_apis.douban_api.get_ratings_by_title(title=title, year=year, tmdb_type=self.tmdb_type) or {}
         except (KeyError, TypeError, IndexError, ValueError):

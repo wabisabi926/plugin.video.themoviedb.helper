@@ -181,8 +181,8 @@ class DoubanCache:
             self._cache = DoubanCacheDatabase()
         return self._cache
 
-    def get_by_imdb(self, imdb_id):
-        row = self.cache.get_cache_by_imdb(imdb_id)
+    def get_by_imdb(self, imdb_id, tmdb_type='movie'):
+        row = self.cache.get_cache_by_imdb(imdb_id, tmdb_type)
         if row and row['rating']:
             return {
                 "douban_id": row['douban_id'],
@@ -202,8 +202,8 @@ class DoubanCache:
             }
         return None
 
-    def get_by_title(self, title, year=None):
-        row = self.cache.get_cache_by_title(title, year)
+    def get_by_title(self, title, year=None, tmdb_type='movie'):
+        row = self.cache.get_cache_by_title(title, year, tmdb_type)
         if row and row['rating']:
             return {
                 "douban_id": row['douban_id'],
@@ -213,8 +213,8 @@ class DoubanCache:
             }
         return None
 
-    def save(self, douban_id, imdb_id=None, title=None, year=None, rating=None, votes=None):
-        self.cache.set_cache(douban_id, imdb_id, title, year, rating, votes)
+    def save(self, douban_id, imdb_id=None, title=None, year=None, rating=None, votes=None, tmdb_type='movie'):
+        self.cache.set_cache(douban_id, imdb_id, title, year, rating, votes, tmdb_type)
 
     def get_stats(self):
         return self.cache.get_stats()
@@ -242,16 +242,16 @@ class DoubanAPI:
         self._last_refresh = current_time
         return True
 
-    def _async_refresh(self, imdb_id=None, title=None, year=None, search_type='movie'):
+    def _async_refresh(self, imdb_id=None, title=None, year=None, tmdb_type='movie'):
         if not self._can_refresh():
             return
 
         def do_refresh():
             try:
                 if imdb_id:
-                    self.get_ratings(imdb_id, search_type, force_refresh=True)
+                    self.get_ratings(imdb_id, tmdb_type, force_refresh=True)
                 elif title:
-                    self.get_ratings_by_title(title, year, search_type, force_refresh=True)
+                    self.get_ratings_by_title(title, year, tmdb_type, force_refresh=True)
             except Exception:
                 pass
 
@@ -263,9 +263,9 @@ class DoubanAPI:
         if not imdb_id or not (isinstance(imdb_id, str) and imdb_id.startswith("tt")):
             return {}
         search_type = 'movie' if tmdb_type == 'movie' else 'tv'
-        cached = self.cache.get_by_imdb(imdb_id)
+        cached = self.cache.get_by_imdb(imdb_id, tmdb_type)
         if cached and not force_refresh:
-            self._async_refresh(imdb_id, title=None, year=None, search_type=search_type)
+            self._async_refresh(imdb_id, title=None, year=None, tmdb_type=tmdb_type)
             return {
                 "douban_rating": int(cached['rating'] * 10),
                 "douban_votes": cached['votes'],
@@ -310,7 +310,8 @@ class DoubanAPI:
             self.cache.save(
                 douban_id=douban_id,
                 rating=float(avg),
-                votes=douban_votes
+                votes=douban_votes,
+                tmdb_type='movie'
             )
             return {
                 "douban_rating": douban_rating,
@@ -324,9 +325,9 @@ class DoubanAPI:
         if not title:
             return {}
         search_type = 'movie' if tmdb_type == 'movie' else 'tv'
-        cached = self.cache.get_by_title(title, year)
+        cached = self.cache.get_by_title(title, year, tmdb_type)
         if cached and not force_refresh:
-            self._async_refresh(imdb_id=None, title=title, year=year, search_type=search_type)
+            self._async_refresh(imdb_id=None, title=title, year=year, tmdb_type=tmdb_type)
             return {
                 "douban_rating": int(cached['rating'] * 10),
                 "douban_votes": cached['votes'],
@@ -372,36 +373,16 @@ class DoubanAPI:
             "douban_id": douban_id,
         }
 
-    def get_batch_ratings(self, items, max_concurrent=5):
-        import asyncio
-        import aiohttp
-
-        async def async_request(url, headers=None):
-            async with aiohttp.ClientSession() as session:
-                async with session.get(url, headers=headers, timeout=REQUEST_TIMEOUT) as resp:
-                    return await resp.json()
-
-        async def fetch_one(key, item):
+    def get_batch_ratings(self, items):
+        results = {}
+        for key, item in items.items():
             if item.get('imdb_id'):
-                return key, self.get_ratings(item['imdb_id'], item.get('tmdb_type', 'movie'))
+                results[key] = self.get_ratings(item['imdb_id'], item.get('tmdb_type', 'movie'))
             elif item.get('title') and item.get('year'):
-                return key, self.get_ratings_by_title(item['title'], item['year'], item.get('tmdb_type', 'movie'))
-            return key, {}
-
-        async def fetch_all():
-            semaphore = asyncio.Semaphore(max_concurrent)
-
-            async def sem_task(key, item):
-                async with semaphore:
-                    return await fetch_one(key, item)
-
-            tasks = [sem_task(key, item) for key, item in items.items()]
-            return await asyncio.gather(*tasks)
-
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        results = loop.run_until_complete(fetch_all())
-        return dict(results)
+                results[key] = self.get_ratings_by_title(item['title'], item['year'], item.get('tmdb_type', 'movie'))
+            else:
+                results[key] = {}
+        return results
 
     def get_stats(self):
         return self.cache.get_stats()

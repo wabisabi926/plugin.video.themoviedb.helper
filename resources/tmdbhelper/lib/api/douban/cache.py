@@ -65,13 +65,13 @@ class DoubanCacheDatabase:
         days = self._get_expiry_days(votes, tmdb_type)
         return (datetime.now() + timedelta(days=days)).strftime("%Y-%m-%d %H:%M:%S")
 
-    def get_cache_by_imdb(self, imdb_id):
+    def get_cache_by_imdb(self, imdb_id, tmdb_type='movie'):
         cursor = self.conn.cursor()
         cursor.execute("""
             SELECT * FROM douban_cache 
-            WHERE imdb_id = ? AND expiry_at > CURRENT_TIMESTAMP
+            WHERE imdb_id = ? AND tmdb_type = ? AND expiry_at > CURRENT_TIMESTAMP
             ORDER BY updated_at DESC LIMIT 1
-        """, (imdb_id,))
+        """, (imdb_id, tmdb_type))
         row = cursor.fetchone()
         return dict(row) if row else None
 
@@ -85,20 +85,20 @@ class DoubanCacheDatabase:
         row = cursor.fetchone()
         return dict(row) if row else None
 
-    def get_cache_by_title(self, title, year=None):
+    def get_cache_by_title(self, title, year=None, tmdb_type='movie'):
         cursor = self.conn.cursor()
         if year:
             cursor.execute("""
                 SELECT * FROM douban_cache 
-                WHERE title = ? AND year = ? AND expiry_at > CURRENT_TIMESTAMP
+                WHERE title = ? AND year = ? AND tmdb_type = ? AND expiry_at > CURRENT_TIMESTAMP
                 ORDER BY updated_at DESC LIMIT 1
-            """, (title, year))
+            """, (title, year, tmdb_type))
         else:
             cursor.execute("""
                 SELECT * FROM douban_cache 
-                WHERE title = ? AND expiry_at > CURRENT_TIMESTAMP
+                WHERE title = ? AND tmdb_type = ? AND expiry_at > CURRENT_TIMESTAMP
                 ORDER BY updated_at DESC LIMIT 1
-            """, (title,))
+            """, (title, tmdb_type))
         row = cursor.fetchone()
         return dict(row) if row else None
 
