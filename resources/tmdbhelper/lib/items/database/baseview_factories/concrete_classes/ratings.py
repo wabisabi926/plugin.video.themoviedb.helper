@@ -44,7 +44,20 @@ class RatingsDict(BaseList):
             return 'show'
 
     def get_imdb_id(self):
-        return FindQueriesDatabase().get_trakt_id(self.tmdb_id, 'tmdb', self.trakt_type, 'imdb')
+        data = self.get_cached_list_values(
+            'unique_id',
+            ('value', ),
+            (self.item_id, 'imdb'),
+            'parent_id=? AND key=?'
+        )
+        if data and data[0] and data[0][0]:
+            return data[0][0]
+        data = self.common_apis.tmdb_api.get_response_json(
+            f'{self.tmdb_type}/{self.tmdb_id}/external_ids'
+        )
+        if data and data.get('imdb_id'):
+            return data['imdb_id']
+        return None
 
     def get_imdb_top250_list(self):
         return FindQueriesDatabase().get_imdb_top250_list_cached(self.tmdb_type)
@@ -101,12 +114,21 @@ class RatingsDict(BaseList):
 
     @cached_property
     def douban_ratings(self):
-        if not self.common_apis.douban_api or not self.imdb_id:
+        if not self.common_apis.douban_api:
             return {}
+        if self.imdb_id:
+            try:
+                return self.common_apis.douban_api.get_ratings(imdb_id=self.imdb_id, tmdb_type=self.tmdb_type) or {}
+            except (KeyError, TypeError, IndexError, ValueError):
+                pass
         try:
-            return self.common_apis.douban_api.get_ratings(imdb_id=self.imdb_id) or {}
+            title = self.get_listitem().get('title') or self.get_listitem().get('label')
+            year = self.get_listitem().get('year')
+            if title:
+                return self.common_apis.douban_api.get_ratings_by_title(title=title, year=year, tmdb_type=self.tmdb_type) or {}
         except (KeyError, TypeError, IndexError, ValueError):
-            return {}
+            pass
+        return {}
 
     @cached_property
     def online_data_mapped(self):
