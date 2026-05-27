@@ -38,6 +38,7 @@ class DoubanCacheDatabase:
                 rating REAL,
                 votes INTEGER,
                 tmdb_type TEXT DEFAULT 'movie',
+                expiry_at TIMESTAMP,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 UNIQUE(douban_id)
@@ -51,62 +52,64 @@ class DoubanCacheDatabase:
         """)
         self.conn.commit()
 
-    def _get_expiry_time(self, rating_count, tmdb_type):
+    def _get_expiry_days(self, votes, tmdb_type):
+        """根据评分数量和类型计算缓存过期天数"""
         if tmdb_type == 'tv':
-            days = CACHE_EXPIRE_DAYS_TV
-        elif rating_count and rating_count > 10000:
-            days = CACHE_EXPIRE_DAYS_HOT
-        else:
-            days = CACHE_EXPIRE_DAYS_MOVIE
-        return (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d %H:%M:%S")
+            return CACHE_EXPIRE_DAYS_TV
+        if votes and votes > 10000:
+            return CACHE_EXPIRE_DAYS_HOT
+        return CACHE_EXPIRE_DAYS_MOVIE
+
+    def _get_expiry_at(self, votes, tmdb_type):
+        """计算缓存过期时间点"""
+        days = self._get_expiry_days(votes, tmdb_type)
+        return (datetime.now() + timedelta(days=days)).strftime("%Y-%m-%d %H:%M:%S")
 
     def get_cache_by_imdb(self, imdb_id):
         cursor = self.conn.cursor()
-        expiry = self._get_expiry_time(None, 'movie')
         cursor.execute("""
             SELECT * FROM douban_cache 
-            WHERE imdb_id = ? AND updated_at >= ?
+            WHERE imdb_id = ? AND expiry_at > CURRENT_TIMESTAMP
             ORDER BY updated_at DESC LIMIT 1
-        """, (imdb_id, expiry))
+        """, (imdb_id,))
         row = cursor.fetchone()
         return dict(row) if row else None
 
     def get_cache_by_douban(self, douban_id):
         cursor = self.conn.cursor()
-        expiry = self._get_expiry_time(None, 'movie')
         cursor.execute("""
             SELECT * FROM douban_cache 
-            WHERE douban_id = ? AND updated_at >= ?
+            WHERE douban_id = ? AND expiry_at > CURRENT_TIMESTAMP
             ORDER BY updated_at DESC LIMIT 1
-        """, (douban_id, expiry))
+        """, (douban_id,))
         row = cursor.fetchone()
         return dict(row) if row else None
 
     def get_cache_by_title(self, title, year=None):
         cursor = self.conn.cursor()
-        expiry = self._get_expiry_time(None, 'movie')
         if year:
             cursor.execute("""
                 SELECT * FROM douban_cache 
-                WHERE title = ? AND year = ? AND updated_at >= ?
+                WHERE title = ? AND year = ? AND expiry_at > CURRENT_TIMESTAMP
                 ORDER BY updated_at DESC LIMIT 1
-            """, (title, year, expiry))
+            """, (title, year))
         else:
             cursor.execute("""
                 SELECT * FROM douban_cache 
-                WHERE title = ? AND updated_at >= ?
+                WHERE title = ? AND expiry_at > CURRENT_TIMESTAMP
                 ORDER BY updated_at DESC LIMIT 1
-            """, (title, expiry))
+            """, (title,))
         row = cursor.fetchone()
         return dict(row) if row else None
 
-    def set_cache(self, douban_id, imdb_id=None, title=None, year=None, rating=None, votes=None):
+    def set_cache(self, douban_id, imdb_id=None, title=None, year=None, rating=None, votes=None, tmdb_type='movie'):
+        expiry_at = self._get_expiry_at(votes, tmdb_type)
         cursor = self.conn.cursor()
         cursor.execute("""
             INSERT OR REPLACE INTO douban_cache 
-            (douban_id, imdb_id, title, year, rating, votes, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-        """, (douban_id, imdb_id, title, year, rating, votes))
+            (douban_id, imdb_id, title, year, rating, votes, tmdb_type, expiry_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+        """, (douban_id, imdb_id, title, year, rating, votes, tmdb_type, expiry_at))
         self.conn.commit()
 
     def get_stats(self):

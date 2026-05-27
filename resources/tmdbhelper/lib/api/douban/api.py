@@ -287,7 +287,7 @@ class DoubanAPI:
                     "douban_id": cached['douban_id'],
                 }
             return {}
-        return self._process_and_cache(raw, imdb_id=imdb_id)
+        return self._process_and_cache(raw, imdb_id=imdb_id, tmdb_type=tmdb_type)
 
     def get_ratings_by_douban_id(self, douban_id):
         if not douban_id:
@@ -342,9 +342,9 @@ class DoubanAPI:
                     "douban_id": cached['douban_id'],
                 }
             return {}
-        return self._process_and_cache(raw, title=title, year=year)
+        return self._process_and_cache(raw, title=title, year=year, tmdb_type=tmdb_type)
 
-    def _process_and_cache(self, raw, imdb_id=None, title=None, year=None):
+    def _process_and_cache(self, raw, imdb_id=None, title=None, year=None, tmdb_type='movie'):
         average = raw.get("average")
         num_raters = raw.get("numRaters")
         douban_id = raw.get("douban_id")
@@ -363,7 +363,8 @@ class DoubanAPI:
                 title=title,
                 year=year,
                 rating=avg_float,
-                votes=douban_votes
+                votes=douban_votes,
+                tmdb_type=tmdb_type
             )
         return {
             "douban_rating": douban_rating,
