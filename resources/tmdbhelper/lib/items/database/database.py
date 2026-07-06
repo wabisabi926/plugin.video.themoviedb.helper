@@ -58,10 +58,7 @@ class ItemDetailsDatabase(Database):
         28: (),
         29: (),
         30: (),
-        31: (
-            'DROP TABLE IF EXISTS simplecache',
-            'DROP TABLE IF EXISTS lactivities',
-        ),
+        31: (),
         32: (),
         33: (),
         34: (),
@@ -112,6 +109,8 @@ class ItemDetailsDatabase(Database):
         43: (
             'ALTER TABLE ratings ADD douban_rating INTEGER',
             'ALTER TABLE ratings ADD douban_votes INTEGER',
+            'DROP TABLE IF EXISTS simplecache',
+            'DROP TABLE IF EXISTS lactivities',
         ),
     }
 
