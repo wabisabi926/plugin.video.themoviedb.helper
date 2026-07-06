@@ -4,6 +4,9 @@ from tmdbhelper.lib.addon.tmdate import set_timestamp, get_timestamp, convert_ti
 from tmdbhelper.lib.api.trakt.sync.activity import SyncLastActivities
 from tmdbhelper.lib.files.locker import mutexlock
 from tmdbhelper.lib.addon.consts import DEFAULT_EXPIRY, HALFDAY_EXPIRY
+from tmdbhelper.lib.addon.thread import ParallelThread
+
+TRAKT_MAX_ITEMS_PER_PAGE = 250
 
 
 def timerlock(func):
@@ -77,18 +80,20 @@ class DataType(SyncDataParentProperties):
             page_count = 0
             page_start = 0
 
-        for x in range(page_start, page_count):
-            next_data = self.get_response_sync_data(*args, **kwargs, page=x)
-
+        def get_next_item(x):
             # TODO: Might need some better validation here to check for timeouts autherror etc.
-            if next_data is None:
-                continue
             try:
-                next_data = next_data.json()
-            except (ValueError, AttributeError):
-                continue
+                return self.get_response_sync_data(*args, **kwargs, page=x).json()
+            except (TypeError, ValueError, AttributeError):
+                return
 
-            this_data.extend(next_data)
+        with ParallelThread(range(page_start, page_count), get_next_item) as pt:
+            next_data = pt.queue
+
+        for i in next_data:
+            if i is None:
+                continue
+            this_data.extend(i)
 
         return this_data
 
@@ -131,7 +136,11 @@ class DataType(SyncDataParentProperties):
     def sync_func(self):
         from tmdbhelper.lib.addon.logger import TimerFunc
         with TimerFunc(f'Sync: {self.__class__.__name__} get_response_sync {self.method} {self.item_type}', inline=True, log_threshold=0.001):
-            return self.get_response_sync('sync', self.method, f'{self.item_type}s', **self.sync_kwgs)
+            return self.get_response_sync(
+                'sync', self.method, f'{self.item_type}s',
+                limit=TRAKT_MAX_ITEMS_PER_PAGE,
+                **self.sync_kwgs
+            )
 
     @progress_bg
     def sync_data(self, **kwargs):
@@ -202,7 +211,11 @@ class SyncHiddenProgressWatched(DataType):
         """ Get items that are hidden on Trakt """
         from tmdbhelper.lib.addon.logger import TimerFunc
         with TimerFunc(f'Sync: {self.__class__.__name__} get_response_sync users {self.method} {self.item_type}', inline=True, log_threshold=0.001):
-            return self.get_response_sync('users', self.method, type=f'{self.item_type}s')
+            return self.get_response_sync(
+                'users', self.method,
+                limit=TRAKT_MAX_ITEMS_PER_PAGE,
+                type=f'{self.item_type}s'
+            )
 
 
 class SyncHiddenProgressCollected(SyncHiddenProgressWatched):
@@ -364,7 +377,9 @@ class SyncNextEpisodeItem:
             return
         return self.get_response_sync(
             f'shows/{self.trakt_slug}/progress/watched',
-            extended='full')
+            extended='full',
+            limit=TRAKT_MAX_ITEMS_PER_PAGE
+        )
 
     @cached_property
     def response_seasons(self):
