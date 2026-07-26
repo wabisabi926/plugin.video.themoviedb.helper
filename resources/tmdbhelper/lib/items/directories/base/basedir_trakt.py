@@ -24,33 +24,6 @@ class BaseDirItemTraktFavorites(BaseDirItemTraktAuthorised):
     group = 1036
 
 
-class BaseDirItemTraktWatchlist(BaseDirItemTraktAuthorised):
-    priority = 120
-    label_type = 'reversed'
-    label_localized = 32193
-    types = ('movie', 'tv', 'season', 'episode', 'both', )
-    params = {'info': 'trakt_watchlist'}
-    sorting = True
-    art_icon = 'resources/icons/trakt/watchlist.png'
-    group = 32193
-
-
-class BaseDirItemTraktWatchListReleased(BaseDirItemTraktWatchlist):
-    priority = 130
-    label_type = 'reversed'
-    label_localized = 32456
-    params = {'info': 'trakt_watchlist_released'}
-    group = 32193
-
-
-class BaseDirItemTraktWatchListAnticipated(BaseDirItemTraktWatchlist):
-    priority = 140
-    label_type = 'reversed'
-    label_localized = 32457
-    params = {'info': 'trakt_watchlist_anticipated'}
-    group = 32193
-
-
 class BaseDirItemTraktHistory(BaseDirItemTraktAuthorised):
     priority = 150
     label_localized = 32194
@@ -658,7 +631,7 @@ class BaseDirItemTraktAuthenticate(BaseDirItem):
     label_localized = 32010
     types = ('both', )
     params = {'info': 'dir_trakt_authenticate'}
-    art_icon = 'resources/trakt.png'
+    art_icon = 'resources/icons/trakt/trakt.png'
     group = 32010
 
     @property
