@@ -1,18 +1,13 @@
-from tmdbhelper.lib.api.trakt.sync.property_mixins import SyncDataParentProperties
 from jurialmunkey.ftools import cached_property
 from tmdbhelper.lib.files.futils import json_loads as data_loads
 from tmdbhelper.lib.files.futils import json_dumps as data_dumps
 from tmdbhelper.lib.addon.tmdate import set_timestamp, get_timestamp
 from tmdbhelper.lib.addon.consts import LASTACTIVITIES_DATA, LASTACTIVITIES_EXPIRY
 from tmdbhelper.lib.files.locker import mutexlock
+from tmdbhelper.lib.sync.mixins import SyncDataParentProperties
 
 
-class SyncLastActivitiesSyndDataProperties(SyncDataParentProperties):
-    def __init__(self, instance_syncdata):
-        self.instance_syncdata = instance_syncdata
-
-
-class SyncLastActivities(SyncLastActivitiesSyndDataProperties):
+class SyncLastActivities(SyncDataParentProperties):
     @property
     def mutex_lockname(self):
         return f'{self.cache._db_file}.sync_last_activities.lockfile'
@@ -49,11 +44,27 @@ class SyncLastActivities(SyncLastActivitiesSyndDataProperties):
     def get_json_sync(self):
         from tmdbhelper.lib.addon.logger import kodi_log
         kodi_log('Sync: last_activities', 2)
-        data = self.get_response_json('sync/last_activities')
-        if not data:
+
+        try:
+            data = self.trakt_api.get_response_json('sync/last_activities') or {}
+        except AttributeError:
+            data = {}
+
+        try:
+            mdblist_data = self.mdblist_api.get_response_json('sync/last_activities') or {}
+        except AttributeError:
+            mdblist_data = {}
+
+        if not data and not mdblist_data:
             return
+
+        from tmdbhelper.lib.sync.synctype import SYNC_SOURCE_WATCHLIST
+        if SYNC_SOURCE_WATCHLIST == 'MDbList':
+            data['watchlisted_at'] = mdblist_data.get('watchlisted_at')
+
         data['expiry'] = set_timestamp(LASTACTIVITIES_EXPIRY)
         self.window.get_property(LASTACTIVITIES_DATA, set_property=data_dumps(data))
+
         return data
 
     def is_expired(self, timestamp, keys=None):
