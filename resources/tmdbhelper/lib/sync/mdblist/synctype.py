@@ -9,6 +9,17 @@ class SyncWatchlist(MDbListDataType):
 
     @property
     def sync_kwgs(self):
-        return {
-            'mediatype': self.item_type
-        }
+        sync_kwgs = {'mediatype': self.item_type}
+        return sync_kwgs
+
+
+class SyncCollection(MDbListDataType):
+    keys = ('last_collected_at', 'last_updated_at', )
+    last_activities_key = 'collected_at'
+    method = 'sync/collection'
+    key_prefix = 'collection'
+
+    @property
+    def sync_kwgs(self):
+        sync_kwgs = {'mediatype': self.item_type}
+        return sync_kwgs
