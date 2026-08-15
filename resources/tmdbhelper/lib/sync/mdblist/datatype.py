@@ -1,5 +1,6 @@
 from tmdbhelper.lib.addon.consts import MDBLIST_MAX_ITEMS_PER_PAGE
 from tmdbhelper.lib.sync.datatype import DataType, DataTypeEpisodes
+from tmdbhelper.lib.addon.logger import kodi_log
 
 
 class MDbListDataType(DataType):
@@ -27,27 +28,43 @@ class MDbListDataType(DataType):
         except KeyError:
             return
 
+    def get_data_list_by_type(self, data):
+        if isinstance(data, list):
+            return data
+        try:
+            return data['items']
+        except KeyError:
+            pass
+        try:
+            return data[f'{self.item_type}s']
+        except KeyError:
+            pass
+
     def get_response_sync(self, *args, **kwargs):
         response = self.get_response_sync_data(*args, **kwargs)
 
         # Check we actually get a response
         if response is None:
             return
+
         try:
-            data = response.json()[f'{self.item_type}s']
-        except (ValueError, AttributeError, KeyError):
+            data = response.json()
+            data = self.get_data_list_by_type(data)
+        except AttributeError:
+            return
+
+        if not data or not isinstance(data, list):
             return
 
         # Check if we have a next_cursor and if we need the data
         next_cursor = self.get_next_cursor(response)
 
-        from tmdbhelper.lib.addon.logger import kodi_log
         if next_cursor:  # and self.is_next_required(data):
-            kodi_log('Sync: next_cursor required', 2)
+            kodi_log(f'Sync: next_cursor: {args} {kwargs}', 2)
             kwargs['cursor'] = next_cursor
             data.extend(self.get_response_sync(*args, **kwargs) or [])
         else:
-            kodi_log('Sync: next_cursor not required', 2)
+            kodi_log(f'Sync: stop_cursor: {args} {kwargs}', 2)
 
         return data
 
