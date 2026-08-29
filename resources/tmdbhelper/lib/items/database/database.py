@@ -45,7 +45,7 @@ class ItemDetailsDatabase(Database):
         super().__init__(filename=self.cache_filename)
 
     # DB version must be max of table_version
-    database_version = 43
+    database_version = 44
 
     database_changes = {
         21: (),
@@ -111,6 +111,9 @@ class ItemDetailsDatabase(Database):
             'ALTER TABLE ratings ADD douban_votes INTEGER',
             'DROP TABLE IF EXISTS simplecache',
             'DROP TABLE IF EXISTS lactivities',
+        ),
+         44: (
+            'ALTER TABLE ratings ADD myanimelist_rating INTEGER',
         ),
     }
 
