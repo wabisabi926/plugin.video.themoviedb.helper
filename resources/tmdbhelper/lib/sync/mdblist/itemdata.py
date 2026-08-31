@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from jurialmunkey.ftools import cached_property
 from tmdbhelper.lib.sync.itemdata import SyncItemData, SyncItem
+from tmdbhelper.lib.sync.itemconf import SyncItemConstructor
 
 
 class MDbListSyncItemData(SyncItemData):  # TODO: FIXME
@@ -10,6 +11,7 @@ class MDbListSyncItemData(SyncItemData):  # TODO: FIXME
     rank = None
     notes = None
     last_updated_at = None
+    reset_at = None
 
     """
     season_number
@@ -45,12 +47,8 @@ class MDbListSyncItemData(SyncItemData):  # TODO: FIXME
 
     def get_tmdb_id(self):
         try:
-            return self.item[self.parent_item_type]['ids']['tmdb']
-        except KeyError:
-            pass
-        try:
-            return self.item['ids']['tmdb']
-        except KeyError:
+            return self.get_data_by_key('ids')['tmdb']
+        except (AttributeError, KeyError, TypeError):
             pass
 
     """
@@ -64,12 +62,42 @@ class MDbListSyncItemData(SyncItemData):  # TODO: FIXME
         return self.item.get('watchlist_at') or self.item.get('listed_at')
 
     """
+    watched_episodes
+    """
+    @cached_property
+    def watched_episodes(self):
+        return self.get_watched_episodes()
+
+    def get_watched_episodes(self):
+        try:
+            return self.item['progress']['watched_episode_count']
+        except (AttributeError, KeyError, TypeError):
+            pass
+
+    """
+    aired_episodes
+    """
+    @cached_property
+    def aired_episodes(self):
+        return self.get_aired_episodes()
+
+    def get_aired_episodes(self):
+        try:
+            return self.item['progress']['total_episode_count']  # TOTAL COUNT APPEARS TO BE AIRED COUNT FOR MDBLIST TODO: CHECK THIS!?!
+        except (AttributeError, KeyError, TypeError):
+            pass
+
+    """
     helper getter for parent item
     """
 
     def get_data_by_key(self, key):
         try:
             return self.item[self.parent_item_type][key]
+        except (AttributeError, KeyError, TypeError):
+            pass
+        try:
+            return self.item[self.item_type][self.parent_item_type][key]
         except (AttributeError, KeyError, TypeError):
             pass
         try:
@@ -178,6 +206,17 @@ class MDbListSyncItemData(SyncItemData):  # TODO: FIXME
         return f'{air_date}T00:00:00.000Z'  # No time from MDBList so set as 00:00 utc
 
     """
+    plays
+    """
+    @cached_property
+    def plays(self):
+        return self.get_plays()
+
+    def get_plays(self):
+        plays = self.get_data_by_key('plays')
+        return plays if plays is not None else 1
+
+    """
     last_watched_at
     """
     @cached_property
@@ -185,7 +224,11 @@ class MDbListSyncItemData(SyncItemData):  # TODO: FIXME
         return self.get_last_watched_at()
 
     def get_last_watched_at(self):
-        return self.item.get('last_watched_at')
+        return self.get_data_by_key('last_watched_at') or self.get_data_by_key('watched_at')
+
+
+class MDbListSyncItemConstructor(SyncItemConstructor):
+    item_data_class = MDbListSyncItemData
 
 
 class MDbListSyncItem(SyncItem):
@@ -229,10 +272,12 @@ class MDbListSyncItem(SyncItem):
         for item in self.meta:
             item_data = MDbListSyncItemData(item, item.get('type') or self.item_type)
 
-            # Iterate through seasons data for watched type syncs where seasons/episodes presented as list
-            # sync_seasons(item_data, item)  # TODO: FIXME DOES MDBLIST WORK LIKE THIS???
-
             # Set values to back to keys for database storage
             data[item_data.item_id] = [getattr(item_data, k) for k in self.keys]
 
         return data
+
+
+class MDbListSyncItemEpisodesToShows(MDbListSyncItem):
+    def get_data(self):
+        return MDbListSyncItemConstructor(self.meta, self.keys, self.item_type).data

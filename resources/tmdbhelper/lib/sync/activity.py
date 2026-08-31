@@ -20,7 +20,7 @@ MDBLIST_SETTINGS = {
         'default': 'paused_at',
         'episodes': 'episode_paused_at'
     },
-    'sync_source_upnext': {
+    'sync_source_watched': {
         'default': 'watched_at',
         'shows': 'episode_watched_at',
         'episodes': 'episode_watched_at'
@@ -102,7 +102,7 @@ class SyncLastActivities(SyncDataParentProperties):
 
         last_activity = self.get_last_activity(keys)
 
-        if not last_activity or last_activity > timestamp:
+        if last_activity and last_activity > timestamp:
             return True
 
         return False
