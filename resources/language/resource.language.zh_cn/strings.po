@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC-Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: 2014-10-26 21:05+0000\n"
-"PO-Revision-Date: 2026-08-15 19:00+0800\n"
+"PO-Revision-Date: 2026-08-31 17:00+0800\n"
 "Last-Translator: Wabisabi926\n"
 "Language-Team: LANGUAGE\n"
 "Language: zh_CN\n"
@@ -2090,6 +2090,10 @@ msgctxt "#32391"
 msgid "Select update type"
 msgstr "选择更新类型"
 
+#: /resources/settings.xml
+msgctxt "#32408"
+msgid "History"
+msgstr "历史记录"
 #: /resources/lib/script/router.py
 msgctxt "#32392"
 msgid ""
@@ -2135,6 +2139,11 @@ msgstr "播放本地 Kodi 媒体库文件"
 msgctxt "#32401"
 msgid "TMDb detailed information"
 msgstr "TMDb 详细信息"
+
+#: /resources/settings.xml
+msgctxt "#32417"
+msgid "MDbList support is currently experimental"
+msgstr "MDbList 支持目前为实验性功能"
 
 #: /resources/settings.xml
 msgctxt "#32404"
