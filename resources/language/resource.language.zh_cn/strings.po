@@ -2761,6 +2761,18 @@ msgctxt "#32540"
 msgid "All digital releases"
 msgstr "全部数字发行影片"
 
+#: /resources/tmdbhelper/lib/items/directories/base/basedir_details.py
+#: /resources/tmdbhelper/lib/items/directories/tmdb/lists_episode_groups.py
+#: /resources/tmdbhelper/lib/items/database/baseview_factories/concrete_classes/groupsseason.py
+msgctxt "#32541"
+msgid "Groups"
+msgstr "分组"
+
+#: /resources/settings.xml
+msgctxt "#32542"
+msgid "Additional season: Groups"
+msgstr "附加季：分组"
+
 msgctxt "#30030"
 msgid "Hindi (India)"
 msgstr "印地语（印度）"
