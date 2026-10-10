@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC-Addons\n"
 "Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
 "POT-Creation-Date: 2014-10-26 21:05+0000\n"
-"PO-Revision-Date: 2026-08-31 17:00+0800\n"
+"PO-Revision-Date: 2026-10-10 14:00+0800\n"
 "Last-Translator: Wabisabi926\n"
 "Language-Team: LANGUAGE\n"
 "Language: zh_CN\n"
@@ -2760,6 +2760,18 @@ msgstr "正在线上播放"
 msgctxt "#32540"
 msgid "All digital releases"
 msgstr "全部数字发行影片"
+
+#: /resources/tmdbhelper/lib/items/directories/base/basedir_details.py
+#: /resources/tmdbhelper/lib/items/directories/tmdb/lists_episode_groups.py
+#: /resources/tmdbhelper/lib/items/database/baseview_factories/concrete_classes/groupsseason.py
+msgctxt "#32541"
+msgid "Groups"
+msgstr "分组"
+
+#: /resources/settings.xml
+msgctxt "#32542"
+msgid "Additional season: Groups"
+msgstr "附加季：分组"
 
 msgctxt "#30030"
 msgid "Hindi (India)"
