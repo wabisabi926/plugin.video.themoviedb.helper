@@ -2773,6 +2773,21 @@ msgctxt "#32542"
 msgid "Additional season: Groups"
 msgstr "附加季：分组"
 
+#: /resources/tmdbhelper/lib/items/directories/base/basedir_mdblist.py
+msgctxt "#32543"
+msgid "Curated Lists"
+msgstr "精选列表"
+
+#: /resources/tmdbhelper/lib/items/directories/base/basedir_mdblist.py
+msgctxt "#32544"
+msgid "Official Lists"
+msgstr "官方列表"
+
+#: /resources/tmdbhelper/lib/items/directories/base/basedir_mdblist.py
+msgctxt "#32545"
+msgid "Streaming Charts"
+msgstr "流媒体榜单"
+
 msgctxt "#30030"
 msgid "Hindi (India)"
 msgstr "印地语（印度）"
