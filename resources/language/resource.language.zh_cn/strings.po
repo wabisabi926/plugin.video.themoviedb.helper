@@ -2788,6 +2788,17 @@ msgctxt "#32545"
 msgid "Streaming Charts"
 msgstr "流媒体榜单"
 
+#: /resources/settings.xml
+#: /resources/tmdbhelper/lib/items/context.py
+msgctxt "#32546"
+msgid "Trakt / MDbList options"
+msgstr "Trakt / MDbList 选项"
+
+#: /resources/tmdbhelper/lib/script/discover/trakt.py
+msgctxt "#32547"
+msgid "Subgenres"
+msgstr "子类型"
+
 msgctxt "#30030"
 msgid "Hindi (India)"
 msgstr "印地语（印度）"
