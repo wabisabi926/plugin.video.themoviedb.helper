@@ -1,0 +1,68 @@
+name: Release addon
+
+on:
+  push:
+    branches:
+      - douban
+    paths:
+      - addon.xml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Read addon id and version
+        id: addon
+        run: |
+          ADDON_ID=$(python3 -c "import xml.etree.ElementTree as ET; print(ET.parse('addon.xml').getroot().attrib['id'])")
+          VERSION=$(python3 -c "import xml.etree.ElementTree as ET; print(ET.parse('addon.xml').getroot().attrib['version'])")
+          echo "id=$ADDON_ID" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=douban-$VERSION" >> "$GITHUB_OUTPUT"
+          echo "asset=plugin.video.themoviedb.helper-douban-$VERSION.zip" >> "$GITHUB_OUTPUT"
+
+      - name: Check whether release already exists
+        id: exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "${{ steps.addon.outputs.tag }}" --repo "${{ github.repository }}" >/dev/null 2>&1; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build addon zip
+        if: steps.exists.outputs.found == 'false'
+        run: |
+          STAGE="$RUNNER_TEMP/addon"
+          rm -rf "$STAGE"
+          mkdir -p "$STAGE/${{ steps.addon.outputs.id }}"
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.gitignore' \
+            ./ "$STAGE/${{ steps.addon.outputs.id }}/"
+          cd "$STAGE"
+          zip -r "$GITHUB_WORKSPACE/${{ steps.addon.outputs.asset }}" "${{ steps.addon.outputs.id }}"
+
+      - name: Publish release
+        if: steps.exists.outputs.found == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.addon.outputs.tag }}
+          name: ${{ steps.addon.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          files: ${{ steps.addon.outputs.asset }}
+          generate_release_notes: true
