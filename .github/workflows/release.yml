@@ -27,10 +27,12 @@ jobs:
         run: |
           ADDON_ID=$(python3 -c "import xml.etree.ElementTree as ET; print(ET.parse('addon.xml').getroot().attrib['id'])")
           VERSION=$(python3 -c "import xml.etree.ElementTree as ET; print(ET.parse('addon.xml').getroot().attrib['version'])")
+          BRANCH="${GITHUB_REF_NAME//\//-}"
           echo "id=$ADDON_ID" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "tag=douban-$VERSION" >> "$GITHUB_OUTPUT"
-          echo "asset=plugin.video.themoviedb.helper-douban-$VERSION.zip" >> "$GITHUB_OUTPUT"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+          echo "tag=${BRANCH}-$VERSION" >> "$GITHUB_OUTPUT"
+          echo "asset=${ADDON_ID}-${BRANCH}-$VERSION.zip" >> "$GITHUB_OUTPUT"
 
       - name: Check whether release already exists
         id: exists
@@ -45,17 +47,58 @@ jobs:
 
       - name: Build addon zip
         if: steps.exists.outputs.found == 'false'
+        env:
+          ADDON_ID: ${{ steps.addon.outputs.id }}
+          ASSET: ${{ steps.addon.outputs.asset }}
         run: |
           STAGE="$RUNNER_TEMP/addon"
           rm -rf "$STAGE"
-          mkdir -p "$STAGE/${{ steps.addon.outputs.id }}"
+          mkdir -p "$STAGE/$ADDON_ID"
           rsync -a \
-            --exclude='.git' \
-            --exclude='.github' \
-            --exclude='.gitignore' \
-            ./ "$STAGE/${{ steps.addon.outputs.id }}/"
+            --exclude='/.git/' \
+            --exclude='/.github/' \
+            --exclude='/.gitignore' \
+            --exclude='/AGENTS.md' \
+            --exclude='/CONTRIBUTING.md' \
+            --exclude='/AI_USAGE.md' \
+            --exclude='__pycache__/' \
+            --exclude='*.py[cod]' \
+            --exclude='*.zip' \
+            --exclude='.DS_Store' \
+            ./ "$STAGE/$ADDON_ID/"
           cd "$STAGE"
-          zip -r "$GITHUB_WORKSPACE/${{ steps.addon.outputs.asset }}" "${{ steps.addon.outputs.id }}"
+          zip -r -9 "$GITHUB_WORKSPACE/$ASSET" "$ADDON_ID"
+
+      - name: Verify package contents
+        if: steps.exists.outputs.found == 'false'
+        env:
+          ADDON_ID: ${{ steps.addon.outputs.id }}
+          VERSION: ${{ steps.addon.outputs.version }}
+          ASSET: ${{ steps.addon.outputs.asset }}
+        run: |
+          LISTING="$(unzip -Z1 "$ASSET")"
+          FORBIDDEN='(^|/)(\.git|\.github|AGENTS\.md|CONTRIBUTING\.md|AI_USAGE\.md|\.gitignore|__pycache__)(/|$)'
+          if echo "$LISTING" | grep -Eq "$FORBIDDEN"; then
+            echo "Forbidden files found in package:"
+            echo "$LISTING" | grep -E "$FORBIDDEN"
+            exit 1
+          fi
+          if echo "$LISTING" | grep -Eq '\.py[cod]$|\.zip$'; then
+            echo "Compiled or archive files found in package"
+            exit 1
+          fi
+          if echo "$LISTING" | grep -Ev "^${ADDON_ID}/" | grep -q .; then
+            echo "Package contains entries outside ${ADDON_ID}/"
+            exit 1
+          fi
+          if ! echo "$LISTING" | grep -qx "${ADDON_ID}/addon.xml"; then
+            echo "addon.xml missing at package root"
+            exit 1
+          fi
+          if ! unzip -p "$ASSET" "${ADDON_ID}/addon.xml" | grep -q "version=\"${VERSION}\""; then
+            echo "addon.xml version does not match ${VERSION}"
+            exit 1
+          fi
 
       - name: Publish release
         if: steps.exists.outputs.found == 'false'
