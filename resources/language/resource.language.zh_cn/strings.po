@@ -2009,6 +2009,11 @@ msgctxt "#32437"
 msgid "Configure provider data allowlist"
 msgstr "设置提供程序白名单"
 
+#: /resources/settings.xml
+msgctxt "#32450"
+msgid "Prefer fallbacks in English"
+msgstr "备用艺术图优先使用英文"
+
 #: /resources/lib/script/method.py
 msgctxt "#32438"
 msgid "Provider allowlist updated"
@@ -2103,6 +2108,11 @@ msgstr "奖项"
 msgctxt "#32463"
 msgid "Cache items in custom lists you own for 24 hours"
 msgstr "将你创建的自定义列表中的项目缓存 24 小时"
+
+#: /resources/settings.xml
+msgctxt "#32479"
+msgid "Determines what artwork to use when artwork from your region is unavailable. Enable to prefer English artwork. Disable to prefer artwork in your language from other regions."
+msgstr "当所在地区没有可用艺术图时，决定改用哪种艺术图：启用后优先使用英文艺术图；禁用后优先使用其他地区中与你语言相同的艺术图。"
 
 #: /resources/settings.xml
 msgctxt "#32466"
