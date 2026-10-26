@@ -1,5 +1,6 @@
-from tmdbhelper.lib.items.directories.lists_default import ListProperties, ListDefault
-from tmdbhelper.lib.items.directories.trakt.mapper_stats import HistoryStatsItemMapper, DailyHistoryStatsItemMapper, MonthlyHistoryStatsItemMapper
+from tmdbhelper.lib.items.directories.lists_default import ListDefault
+from tmdbhelper.lib.items.directories.sync.lists_provider import SyncProviderListProperties
+from tmdbhelper.lib.items.directories.sync.mapper_stats import HistoryStatsItemMapper, DailyHistoryStatsItemMapper, MonthlyHistoryStatsItemMapper
 from tmdbhelper.lib.addon.plugin import convert_type
 from tmdbhelper.lib.addon.tmdate import get_datetime_today, get_timedelta
 from tmdbhelper.lib.sync.datasync import SyncDataFactory
@@ -7,13 +8,16 @@ from jurialmunkey.ftools import cached_property
 from jurialmunkey.parser import try_int
 
 
-class ListHistoryStatsProperties(ListProperties):
+class ListHistoryStatsProperties(SyncProviderListProperties):
 
     container_content = 'files'
     item_mapper_class = HistoryStatsItemMapper
     item_type = None
     days = 30
     sort_how = 'desc'
+
+    def get_provider_available(self):
+        return SyncDataFactory().get_sync_provider('SyncWatched') is not None
 
     @cached_property
     def sync_data(self):
@@ -73,6 +77,8 @@ class ListHistoryStatsProperties(ListProperties):
 
     @cached_property
     def items(self):
+        if not self.provider_available:
+            return []
         return [
             self.get_mapped_item({
                 'watched_date': watched_date,

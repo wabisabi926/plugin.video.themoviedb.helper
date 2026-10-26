@@ -579,6 +579,15 @@
                         <close>true</close>
                     </control>
                 </setting>
+                <setting id="trakt_cacheownlists" type="boolean" label="32463" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle" />
+                </setting>
+            </group>
+        </category>
+        <category id="accounts" label="32403" help="">
+            <group id="2" label="5">
                 <setting id="trakt_becausewatchedseed" type="integer" label="32482" help="32481">
                     <level>0</level>
                     <default>5</default>
@@ -591,15 +600,6 @@
                         <popup>false</popup>
                     </control>
                 </setting>
-                <setting id="trakt_cacheownlists" type="boolean" label="32463" help="">
-                    <level>0</level>
-                    <default>true</default>
-                    <control type="toggle" />
-                </setting>
-            </group>
-        </category>
-        <category id="accounts" label="32403" help="">
-            <group id="2" label="5">
                 <setting id="trakt_watchedindicators" type="boolean" label="32013" help="">
                     <level>0</level>
                     <default>false</default>
@@ -613,6 +613,11 @@
                     <control type="button" format="action">
                         <data>RunScript(plugin.video.themoviedb.helper, invalidate_sync)</data>
                     </control>
+                </setting>
+                <setting id="install_sync_provider" type="action" label="32557" help="">
+                    <level>0</level>
+                    <data>RunScript(plugin.video.themoviedb.helper,install_sync_provider)</data>
+                    <control type="button" format="action" />
                 </setting>
             </group>
 
@@ -641,20 +646,12 @@
                         <data>RunScript(plugin.video.themoviedb.helper,select_sync_provider,capability=collection)</data>
                     </control>
                 </setting>
-                <setting id="sync_provider_ratings" type="string" label="563" help="32548">
+                <setting id="sync_provider_scrobbling" type="string" label="32138" help="32548">
                     <level>0</level>
                     <default></default>
                     <constraints><allowempty>true</allowempty></constraints>
                     <control type="button" format="action">
-                        <data>RunScript(plugin.video.themoviedb.helper,select_sync_provider,capability=ratings)</data>
-                    </control>
-                </setting>
-                <setting id="sync_provider_favorites" type="string" label="1036" help="32548">
-                    <level>0</level>
-                    <default></default>
-                    <constraints><allowempty>true</allowempty></constraints>
-                    <control type="button" format="action">
-                        <data>RunScript(plugin.video.themoviedb.helper,select_sync_provider,capability=favorites)</data>
+                        <data>RunScript(plugin.video.themoviedb.helper,select_sync_provider,capability=scrobbling)</data>
                     </control>
                 </setting>
             </group>
@@ -734,14 +731,6 @@
                     <dependencies>
                         <dependency type="visible" operator="!is" setting="tmdb_user_token"></dependency>
                     </dependencies>
-                </setting>
-                <setting id="sync_provider_scrobbling" type="string" label="32138" help="32548">
-                    <level>0</level>
-                    <default></default>
-                    <constraints><allowempty>true</allowempty></constraints>
-                    <control type="button" format="action">
-                        <data>RunScript(plugin.video.themoviedb.helper,select_sync_provider,capability=scrobbling)</data>
-                    </control>
                 </setting>
             </group>
         </category>
