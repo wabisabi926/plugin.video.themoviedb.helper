@@ -2443,6 +2443,246 @@ msgctxt "#32547"
 msgid "Subgenres"
 msgstr "子类型"
 
+#: /resources/settings.xml
+msgctxt "#32548"
+msgid "Choose a provider for this feature, install or enable a supported provider, or choose None to disable it and hide its lists."
+msgstr "为此功能选择提供方；安装或启用一个受支持的提供方，或选择「无」以禁用并隐藏其列表。"
+
+#: /resources/settings.xml /resources/tmdbhelper/lib/items/context.py
+msgctxt "#32549"
+msgid "Sync Options"
+msgstr "同步选项"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_setup.py
+msgctxt "#32550"
+msgid "TMDbHelper Sync Provider"
+msgstr "TMDbHelper 同步提供方"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_install.py
+msgctxt "#32551"
+msgid "Install {0}"
+msgstr "安装 {0}"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_install.py
+msgctxt "#32552"
+msgid "Enable {0}"
+msgstr "启用 {0}"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_features.py
+msgctxt "#32553"
+msgid "Choose features for {0}"
+msgstr "为 {0} 选择功能"
+
+#: /resources/tmdbhelper/lib/script/method/sync_provider.py
+msgctxt "#32554"
+msgid "{0} does not support {1}. Choose another provider for this list."
+msgstr "{0} 不支持 {1}。请为此列表选择其他提供方。"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_setup.py
+msgctxt "#32555"
+msgid "{0} requires a sync provider. Choose a provider to use, install or enable. Installation uses your installed repositories."
+msgstr "{0} 需要同步提供方。请选择要使用的提供方，并进行安装或启用。安装将使用你已安装的软件源。"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_setup.py
+msgctxt "#32556"
+msgid "Later"
+msgstr "稍后"
+
+#: /resources/settings.xml /resources/tmdbhelper/lib/script/sync/provider_catalog.py
+msgctxt "#32557"
+msgid "Install sync provider"
+msgstr "安装同步提供方"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_catalog.py
+msgctxt "#32558"
+msgid "{0} (install)"
+msgstr "{0}（安装）"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_catalog.py
+msgctxt "#32559"
+msgid "{0} (enable)"
+msgstr "{0}（启用）"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_default.py
+msgctxt "#32560"
+msgid "Set {0} as the default sync provider? This clears all current provider selections and uses {0} for every feature it supports."
+msgstr "将 {0} 设为默认同步提供方？这会清除当前所有提供方选择，并在其支持的所有功能中使用 {0}。"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_default.py
+msgctxt "#32561"
+msgid "Default"
+msgstr "默认"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_default.py
+msgctxt "#32562"
+msgid "Custom"
+msgstr "自定义"
+
+#: /resources/tmdbhelper/lib/script/method/sync_provider.py
+msgctxt "#32563"
+msgid "You are enabling {0}, a third-party sync service outside TMDbHelper's trusted list. Only continue if you trust this service and understand the risks, including sharing your viewing activity and account data."
+msgstr "你正在启用 {0}，这是一个不在 TMDbHelper 受信任列表中的第三方同步服务。请仅在信任该服务并了解相关风险（包括共享你的观看活动和账户数据）的情况下继续。"
+
+#: /resources/settings.xml
+msgctxt "#32564"
+msgid "Image cache size"
+msgstr "图像缓存大小"
+
+#: /resources/settings.xml
+msgctxt "#32565"
+msgid "Size limit per folder. Unlimited disables cleanup."
+msgstr "每个文件夹的大小上限。选择「无限制」将禁用清理。"
+
+#: /resources/settings.xml
+msgctxt "#32566"
+msgid "Unlimited"
+msgstr "无限制"
+
+#: /resources/settings.xml /resources/tmdbhelper/lib/script/method/image_cache.py
+msgctxt "#32567"
+msgid "Clean image cache"
+msgstr "清理图像缓存"
+
+#: /resources/tmdbhelper/lib/script/method/image_cache.py
+msgctxt "#32568"
+msgid "Scanning {0}: {1} of {2} files"
+msgstr "正在扫描 {0}：第 {1}/{2} 个文件"
+
+#: /resources/tmdbhelper/lib/script/method/image_cache.py
+msgctxt "#32569"
+msgid "Cleaning {0}"
+msgstr "正在清理 {0}"
+
+#: /resources/tmdbhelper/lib/script/method/image_cache.py
+msgctxt "#32570"
+msgid "Space reclaimed: {0}"
+msgstr "已释放空间：{0}"
+
+#: /resources/tmdbhelper/lib/script/method/image_cache.py
+msgctxt "#32571"
+msgid "Image cache cleanup finished. Space reclaimed: {0}."
+msgstr "图像缓存清理完成。已释放空间：{0}。"
+
+#: /resources/tmdbhelper/lib/script/method/image_cache.py
+msgctxt "#32572"
+msgid "Image cache cleanup cancelled. Space reclaimed: {0}."
+msgstr "图像缓存清理已取消。已释放空间：{0}。"
+
+#: /resources/tmdbhelper/lib/script/method/image_cache.py
+msgctxt "#32573"
+msgid "Image cache cleanup is disabled while the target size is Unlimited."
+msgstr "目标大小为「无限制」时，图像缓存清理已禁用。"
+
+#: /resources/settings.xml
+msgctxt "#32574"
+msgid "Save settings and clean to the selected size limit."
+msgstr "保存设置并清理至所选大小上限。"
+
+#: /resources/settings.xml
+msgctxt "#32575"
+msgid "32 MB"
+msgstr "32 MB"
+
+#: /resources/settings.xml
+msgctxt "#32576"
+msgid "64 MB"
+msgstr "64 MB"
+
+#: /resources/settings.xml
+msgctxt "#32577"
+msgid "128 MB"
+msgstr "128 MB"
+
+#: /resources/settings.xml
+msgctxt "#32578"
+msgid "256 MB"
+msgstr "256 MB"
+
+#: /resources/settings.xml
+msgctxt "#32579"
+msgid "512 MB"
+msgstr "512 MB"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_directory.py
+msgctxt "#32580"
+msgid "The route \"{0}\" is not available in TMDbHelper. It may be available in the {1} sync module. Install or enable this module?"
+msgstr "TMDbHelper 中不提供路由「{0}」。它可能在 {1} 同步模块中可用。是否安装或启用该模块？"
+
+#: /resources/settings.xml
+msgctxt "#32581"
+msgid "Ratings providers"
+msgstr "评分提供方"
+
+#: /resources/settings.xml
+msgctxt "#32582"
+msgid "Select the installed providers to use for ratings. Cached ratings are retained."
+msgstr "选择用于评分的已安装提供方。已缓存的评分将保留。"
+
+#: /resources/tmdbhelper/lib/script/ratings/providers.py
+msgctxt "#32583"
+msgid "{0}. {1} ({2})"
+msgstr "{0}. {1}（{2}）"
+
+#: /resources/tmdbhelper/lib/script/ratings/providers.py
+msgctxt "#32584"
+msgid "Enabled"
+msgstr "已启用"
+
+#: /resources/tmdbhelper/lib/script/ratings/providers.py
+msgctxt "#32585"
+msgid "Disabled"
+msgstr "已禁用"
+
+#: /resources/tmdbhelper/lib/script/ratings/providers.py
+msgctxt "#32586"
+msgid "Move up"
+msgstr "上移"
+
+#: /resources/tmdbhelper/lib/script/ratings/providers.py
+msgctxt "#32587"
+msgid "Move down"
+msgstr "下移"
+
+#: /resources/tmdbhelper/lib/script/ratings/providers.py
+msgctxt "#32588"
+msgid "No ratings providers are installed."
+msgstr "未安装任何评分提供方。"
+
+#: /resources/settings.xml
+msgctxt "#32591"
+msgid "Priority"
+msgstr "优先级"
+
+#: /resources/settings.xml
+msgctxt "#32592"
+msgid "Arrange ratings providers in priority order. Providers higher in the list take precedence over lower providers. Cached ratings are retained."
+msgstr "按优先级排列评分提供方。列表上方的提供方优先于下方的提供方。已缓存的评分将保留。"
+
+#: /resources/settings.xml /resources/tmdbhelper/lib/player/dialog/episode_groups.py
+msgctxt "#32593"
+msgid "Episode numbering"
+msgstr "剧集编号"
+
+#: /resources/settings.xml /resources/tmdbhelper/lib/player/dialog/episode_groups.py
+msgctxt "#32594"
+msgid "Default"
+msgstr "默认"
+
+#: /resources/settings.xml
+msgctxt "#32595"
+msgid "Select"
+msgstr "选择"
+
+#: /resources/settings.xml
+msgctxt "#32596"
+msgid "Group"
+msgstr "分组"
+
+#: /resources/settings.xml /resources/tmdbhelper/lib/player/dialog/episode_groups.py
+msgctxt "#32597"
+msgid "Choose which season and episode numbers to pass to players. Default always uses TMDb numbering. Select asks which episode group to use when groups are available. Group uses the current episode group's numbering when playback starts from a group, otherwise TMDb numbering. A player's episode_groups option overrides this setting."
+msgstr "选择传递给播放器的季号和集号方式。「默认」始终使用 TMDb 编号。「选择」在有剧集组可用时询问使用哪个剧集组。「分组」在从剧集组开始播放时使用当前剧集组的编号，否则使用 TMDb 编号。播放器的 episode_groups 选项会覆盖此设置。"
+
 msgctxt "#30030"
 msgid "Hindi (India)"
 msgstr "印地语（印度）"
