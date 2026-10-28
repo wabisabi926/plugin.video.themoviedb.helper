@@ -928,7 +928,6 @@ USER_ART_COLUMNS = {
     },
     'parent_id': {
         'data': 'TEXT',
-        'foreign_key': 'baseitem(id)',
         'indexed': True,
         'unique': True,
     },
