@@ -6,7 +6,7 @@ from tmdbhelper.lib.script.sync.provider_settings import SyncProviderSettings
 from tmdbhelper.lib.sync.providers.catalog import PROVIDERS
 from tmdbhelper.lib.sync.providers.features import FEATURE_LABELS
 from tmdbhelper.lib.sync.providers.registry import SyncProviderRegistry
-from tmdbhelper.lib.sync.providers.selection import SyncProviderSetting
+from tmdbhelper.lib.sync.providers.selection import SyncProviderSetting, SyncProviderSettingFactory
 
 
 class SyncProviderSelection(SyncProviderSetting):
@@ -37,8 +37,9 @@ class SyncProviderSelection(SyncProviderSetting):
     def get_preselect(self, ids):
         if not self.is_unconfigured:
             return ids.index(self.value) if self.value in ids else 0
-        selected_ids = {SyncProviderSetting(feature).provider_id for feature in FEATURE_LABELS
-                        if feature not in self.capabilities}
+        selected_ids = {
+            provider_id for feature in FEATURE_LABELS if feature not in self.capabilities
+            for provider_id in SyncProviderSettingFactory(feature).provider_ids}
         preferred = next((provider.provider_id for provider in self.providers
                           if provider.provider_id in selected_ids), self.never_value)
         return ids.index(preferred)
@@ -103,10 +104,19 @@ class SyncProviderListSelection(SyncProviderSelection):
 
 
 def select_sync_provider(capability, return_settings=False, **kwargs):
-    selection = SyncProviderSelection(capability)
+    if capability == 'scrobbling':
+        from tmdbhelper.lib.script.sync.scrobbling import ScrobblingProviderSelection
+        selection = ScrobblingProviderSelection(capability)
+    else:
+        selection = SyncProviderSelection(capability)
     if return_settings:
         return SyncProviderSettings(FEATURE_LABELS[capability]).select(selection)
     selection.select()
+
+
+def configure_sync_provider(addon_id, **kwargs):
+    from tmdbhelper.lib.script.sync.provider_setup import SyncProviderOnboarding
+    SyncProviderOnboarding(addon_id).configure()
 
 
 def install_sync_provider(return_settings=False, **kwargs):
@@ -115,3 +125,10 @@ def install_sync_provider(return_settings=False, **kwargs):
     if return_settings:
         return SyncProviderSettings(32557).select(selection)
     selection.select()
+
+
+def open_sync_provider_settings(addon_id, **kwargs):
+    from xbmcaddon import Addon
+    provider = SyncProviderInstall(addon_id).install()
+    if provider is not None:
+        Addon(provider.addon_id).openSettings()

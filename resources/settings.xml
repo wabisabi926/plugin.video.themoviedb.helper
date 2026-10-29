@@ -401,22 +401,22 @@
                 </setting>
             </group>
             <group id="2" label="32422">
-                <setting id="mdblist_apikey" type="string" label="32423" help="">
+                <setting id="mdblist_settings" type="action" label="10004" help="">
                     <level>0</level>
+                    <control type="button" format="action">
+                        <close>true</close>
+                        <data>RunScript(plugin.video.themoviedb.helper,open_sync_provider_settings,addon_id=script.module.tmdbhelper.sync.mdblist)</data>
+                    </control>
+                </setting>
+                <!-- Retained only so Kodi can read and clear pre-module keys. -->
+                <setting id="mdblist_apikey" type="string" label="32423" help="">
+                    <level>4</level>
                     <default/>
                     <constraints>
                         <allowempty>true</allowempty>
                     </constraints>
-                    <control type="edit" format="string">
-                        <heading>32423</heading>
-                    </control>
-                </setting>
-                <setting id="mdblist_apikey_access" type="boolean" label="32483" help="" parent="mdblist_apikey">
-                    <level>0</level>
-                    <default>false</default>
-                    <control type="toggle"/>
+                    <control type="edit" format="string"/>
                     <visible>false</visible>
-                    <enable>false</enable>
                 </setting>
             </group>
             <group id="3" label="32124">
@@ -651,13 +651,22 @@
                         <data>RunScript(plugin.video.themoviedb.helper,select_sync_provider,capability=collection,return_settings=true)</data>
                     </control>
                 </setting>
-                <setting id="sync_provider_scrobbling" type="string" label="32138" help="32548">
+                <setting id="sync_provider_scrobbling" type="string" label="32138" help="32599">
                     <level>0</level>
                     <default></default>
                     <constraints><allowempty>true</allowempty></constraints>
                     <control type="button" format="action">
                         <close>true</close>
                         <data>RunScript(plugin.video.themoviedb.helper,select_sync_provider,capability=scrobbling,return_settings=true)</data>
+                    </control>
+                </setting>
+                <setting id="sync_provider_stats" type="string" label="32598" help="32548">
+                    <level>0</level>
+                    <default></default>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <control type="button" format="action">
+                        <close>true</close>
+                        <data>RunScript(plugin.video.themoviedb.helper,select_sync_provider,capability=stats,return_settings=true)</data>
                     </control>
                 </setting>
             </group>
