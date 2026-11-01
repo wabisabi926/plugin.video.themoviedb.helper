@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Read addon id and version
         id: addon
@@ -44,6 +46,20 @@ jobs:
           else
             echo "found=false" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Generate changelog
+        if: steps.exists.outputs.found == 'false'
+        env:
+          TAG: ${{ steps.addon.outputs.tag }}
+        run: |
+          python3 scripts/build_changelog.py \
+            --compare-to "$TAG" \
+            --output "$RUNNER_TEMP/changelog.md"
+          if [ ! -s "$RUNNER_TEMP/changelog.md" ]; then
+            echo "本次发布无分类变更。" > "$RUNNER_TEMP/changelog.md"
+          fi
+          echo "--- changelog preview ---"
+          cat "$RUNNER_TEMP/changelog.md"
 
       - name: Build addon zip
         if: steps.exists.outputs.found == 'false'
@@ -108,4 +124,4 @@ jobs:
           name: ${{ steps.addon.outputs.tag }}
           target_commitish: ${{ github.sha }}
           files: ${{ steps.addon.outputs.asset }}
-          generate_release_notes: true
+          body_path: ${{ runner.temp }}/changelog.md
