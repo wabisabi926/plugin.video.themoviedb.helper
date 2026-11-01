@@ -3614,3 +3614,38 @@ msgstr "TVDb 设置"
 msgctxt "#32739"
 msgid "Install or enable the TVDb module and open its API settings."
 msgstr "安装或启用 TVDb 模块并打开其 API 设置。"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_manager.py
+msgctxt "#32740"
+msgid "Provider modules"
+msgstr "提供商模块"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_manager.py
+msgctxt "#32741"
+msgid "{0} ({1})"
+msgstr "{0} ({1})"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_manager_features.py
+msgctxt "#32742"
+msgid "Set {0} as the default sync provider? This replaces the current sync selections and clears features it does not support. Ratings and scrobbling are configured separately."
+msgstr "将 {0} 设为默认同步提供商？这会替换当前的同步选择，并清除其不支持的功能。评分和播放同步单独配置。"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_manager_features.py
+msgctxt "#32743"
+msgid "Enable {0} as a ratings provider?"
+msgstr "将 {0} 启用为评分提供商？"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_manager_features.py
+msgctxt "#32744"
+msgid "Enable scrobbling with {0}?"
+msgstr "启用 {0} 的播放同步？"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_manager.py
+msgctxt "#32745"
+msgid "Are you sure you want to disable {0}? The module and its features will be unavailable."
+msgstr "确定要禁用 {0} 吗？该模块及其功能将不可用。"
+
+#: /resources/tmdbhelper/lib/script/sync/provider_manager.py
+msgctxt "#32746"
+msgid "Disabling this module will remove it from:\n{0}"
+msgstr "禁用此模块会将其从以下位置移除：\n{0}"
