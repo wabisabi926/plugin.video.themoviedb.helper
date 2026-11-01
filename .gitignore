@@ -63,3 +63,6 @@ target/
 *.zip
 .DS_Store
 resources/databases/collections.work.db*
+
+# WorkBuddy AI workspace data
+.workbuddy-ai/
