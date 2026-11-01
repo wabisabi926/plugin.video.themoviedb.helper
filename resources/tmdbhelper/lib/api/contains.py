@@ -1,5 +1,4 @@
 from jurialmunkey.ftools import cached_property
-from tmdbhelper.lib.awards.database import AwardsDatabase
 
 
 class CommonContainerAPIs():
@@ -25,11 +24,6 @@ class CommonContainerAPIs():
         if not get_setting('fanarttv_lookup'):
             return
         return FanartTV()
-
-    @cached_property
-    def tvdb_api(self):
-        from tmdbhelper.lib.api.tvdb.api import TVDb
-        return TVDb()
 
     @cached_property
     def omdb_api(self):
@@ -73,6 +67,7 @@ class CommonRatingsAPIs(CommonContainerAPIs):
 
     @staticmethod
     def get_awards_database():
+        from tmdbhelper.lib.awards.database import AwardsDatabase
         return AwardsDatabase()
 
     @cached_property
