@@ -26,14 +26,6 @@ class CommonContainerAPIs():
         return FanartTV()
 
     @cached_property
-    def omdb_api(self):
-        from tmdbhelper.lib.api.omdb.api import OMDb
-        from tmdbhelper.lib.addon.plugin import get_setting
-        if not get_setting('omdb_apikey', 'str'):
-            return
-        return OMDb()
-
-    @cached_property
     def douban_api(self):
         from tmdbhelper.lib.api.douban.api import DoubanAPI
         return DoubanAPI()
@@ -99,7 +91,6 @@ class CommonRatingsAPIs(CommonContainerAPIs):
     def configure_sync(self, sync, season=None, episode=None):
         sync.common_apis.trakt_api = self.trakt_api
         sync.common_apis.tmdb_api = self.tmdb_api
-        sync.common_apis.omdb_api = self.omdb_api
         sync.common_apis.douban_api = self.douban_api
         sync.tmdb_type = self.tmdb_type
         sync.tmdb_id = self.tmdb_id
