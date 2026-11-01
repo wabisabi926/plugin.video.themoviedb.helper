@@ -2909,3 +2909,708 @@ msgstr "电影默认播放器"
 msgctxt "#32025"
 msgid "Default player for episodes"
 msgstr "剧集默认播放器"
+
+#: /resources/settings.xml
+msgctxt "#32598"
+msgid "Statistics"
+msgstr "统计"
+
+#: /resources/settings.xml
+msgctxt "#32599"
+msgid "Choose providers to receive playback activity. Clear all selections to disable scrobbling."
+msgstr "选择接收播放活动的提供商。清空所有选择即可关闭播放同步。"
+
+#: /resources/tmdbhelper/lib/items/directories/base/basedir_sync.py
+msgctxt "#32600"
+msgid "Currently Watching"
+msgstr "正在观看"
+
+#: /resources/tmdbhelper/lib/items/directories/base/basedir_sync.py
+msgctxt "#32602"
+msgid "Your Next Movies"
+msgstr "待看新片"
+
+#: /resources/settings.xml
+msgctxt "#32603"
+msgid "Update collections"
+msgstr "更新合集"
+
+#: /resources/settings.xml
+msgctxt "#32604"
+msgid "Discover new movie collections daily and refresh older ones for Your Next Movies after its first use."
+msgstr "每天发现新的电影合集，并在「待看新片」首次使用后刷新较旧的合集。"
+
+#: /resources/settings.xml
+msgctxt "#32605"
+msgid "Daily request limit"
+msgstr "每日请求上限"
+
+#: /resources/settings.xml
+msgctxt "#32606"
+msgid "Limit daily movie collection requests, including retries. New collections take priority over overdue refreshes."
+msgstr "限制每日电影合集请求数（含重试）。新合集的优先级高于逾期刷新。"
+
+#: /resources/tmdbhelper/lib/items/directories/sync/mapper_nextmovies.py
+msgctxt "#32607"
+msgid "Drop collection"
+msgstr "移除合集"
+
+#: /resources/settings.xml
+msgctxt "#32608"
+msgid "Advanced"
+msgstr "高级"
+
+#: /resources/settings.xml
+msgctxt "#32609"
+msgid "Include movie releases outside your selected country when filtering TMDb lists."
+msgstr "筛选 TMDb 列表时，包含所选国家以外地区上映的电影。"
+
+#: /resources/settings.xml
+msgctxt "#32610"
+msgid "Show authorisation and sync notifications when Kodi starts."
+msgstr "Kodi 启动时显示授权和同步通知。"
+
+#: /resources/settings.xml
+msgctxt "#32611"
+msgid "Show notifications while user data is synchronising."
+msgstr "用户数据同步时显示通知。"
+
+#: /resources/settings.xml
+msgctxt "#32612"
+msgid "Show a notification when a service connection fails."
+msgstr "服务连接失败时显示通知。"
+
+#: /resources/settings.xml
+msgctxt "#32613"
+msgid "Show Browse lists in the item context menu."
+msgstr "在条目右键菜单中显示「浏览列表」。"
+
+#: /resources/settings.xml
+msgctxt "#32614"
+msgid "Show sync actions in the item context menu."
+msgstr "在条目右键菜单中显示同步操作。"
+
+#: /resources/settings.xml
+msgctxt "#32615"
+msgid "Show TMDb account actions in the item context menu."
+msgstr "在条目右键菜单中显示 TMDb 账号操作。"
+
+#: /resources/settings.xml
+msgctxt "#32616"
+msgid "Show Refresh details in the item context menu."
+msgstr "在条目右键菜单中显示「刷新详情」。"
+
+#: /resources/settings.xml
+msgctxt "#32617"
+msgid "Show Modify artwork in the item context menu."
+msgstr "在条目右键菜单中显示「修改艺术图」。"
+
+#: /resources/settings.xml
+msgctxt "#32618"
+msgid "Add to library"
+msgstr "添加到媒体库"
+
+#: /resources/settings.xml
+msgctxt "#32619"
+msgid "Show Add to library in the item context menu."
+msgstr "在条目右键菜单中显示「添加到媒体库」。"
+
+#: /resources/settings.xml
+msgctxt "#32620"
+msgid "Show Add node in the item context menu."
+msgstr "在条目右键菜单中显示「添加节点」。"
+
+#: /resources/settings.xml
+msgctxt "#32621"
+msgid "Show a next-page item in widgets when more results are available."
+msgstr "当还有更多结果时，在小部件中显示「下一页」条目。"
+
+#: /resources/settings.xml
+msgctxt "#32622"
+msgid "Open the episode list directly instead of showing seasons."
+msgstr "直接打开剧集列表，不显示季列表。"
+
+#: /resources/settings.xml
+msgctxt "#32623"
+msgid "Show the additional Specials season entry."
+msgstr "显示附加的「特别篇」季条目。"
+
+#: /resources/settings.xml
+msgctxt "#32624"
+msgid "Show the additional Anticipated season entry."
+msgstr "显示附加的「待上线」季条目。"
+
+#: /resources/settings.xml
+msgctxt "#32625"
+msgid "Show the additional episode Groups entry."
+msgstr "显示附加的「剧集分组」条目。"
+
+#: /resources/settings.xml
+msgctxt "#32626"
+msgid "Show the additional Up next season entry when signed in to Trakt."
+msgstr "登录 Trakt 后显示附加的「下个播放」季条目。"
+
+#: /resources/settings.xml
+msgctxt "#32627"
+msgid "Combine episodes from the same show airing on the same day into one calendar entry."
+msgstr "将同一剧集在同一天播出的多集合并为一个日历条目。"
+
+#: /resources/settings.xml
+msgctxt "#32628"
+msgid "Open the local TV show from entries in the next-aired library calendar."
+msgstr "从媒体库「即将播出」日历的条目打开本地剧集。"
+
+#: /resources/settings.xml
+msgctxt "#32629"
+msgid "Choose the artwork used for next-episode thumbnails."
+msgstr "选择下一集缩略图使用的艺术图。"
+
+#: /resources/settings.xml
+msgctxt "#32630"
+msgid "Check the calendar for next episodes. Slower, but more accurate."
+msgstr "通过日历检查下一集。速度较慢，但更准确。"
+
+#: /resources/settings.xml
+msgctxt "#32631"
+msgid "Load this many pages per request for basic TMDb lists. Higher values are slower."
+msgstr "基础 TMDb 列表每次请求加载的页数。数值越大速度越慢。"
+
+#: /resources/settings.xml
+msgctxt "#32632"
+msgid "Load this many pages per request for other basic lists. Higher values are slower."
+msgstr "其他基础列表每次请求加载的页数。数值越大速度越慢。"
+
+#: /resources/settings.xml
+msgctxt "#32633"
+msgid "Load this many pages per request for synced database lists. Higher values are slower."
+msgstr "同步数据库列表每次请求加载的页数。数值越大速度越慢。"
+
+#: /resources/settings.xml
+msgctxt "#32634"
+msgid "Cache the items in Trakt custom lists you own for 24 hours."
+msgstr "将你自己拥有的 Trakt 自定义列表条目缓存 24 小时。"
+
+#: /resources/settings.xml
+msgctxt "#32635"
+msgid "Choose the resolution of artwork downloaded from TMDb."
+msgstr "选择从 TMDb 下载艺术图的分辨率。"
+
+#: /resources/settings.xml
+msgctxt "#32636"
+msgid "Fetch Fanart.tv artwork for plugin items. Additional lookups are slower."
+msgstr "为插件条目获取 Fanart.tv 艺术图。额外查询会变慢。"
+
+#: /resources/settings.xml
+msgctxt "#32637"
+msgid "Prefer Fanart.tv artwork over TMDb artwork when both are available."
+msgstr "两者都可用时，优先使用 Fanart.tv 艺术图而非 TMDb 艺术图。"
+
+#: /resources/settings.xml
+msgctxt "#32638"
+msgid "Prefer artwork in your selected language when choosing images."
+msgstr "选择图片时优先使用所选语言的艺术图。"
+
+#: /resources/settings.xml
+msgctxt "#32639"
+msgid "Choose the folder containing custom icons for TMDb genres."
+msgstr "选择存放 TMDb 类型自定义图标的文件夹。"
+
+#: /resources/settings.xml
+msgctxt "#32640"
+msgid "Choose the folder containing custom icons for Trakt genres."
+msgstr "选择存放 Trakt 类型自定义图标的文件夹。"
+
+#: /resources/settings.xml
+msgctxt "#32641"
+msgid "Choose the folder containing custom TMDb watch-provider icons."
+msgstr "选择存放 TMDb 观看提供商自定义图标的文件夹。"
+
+#: /resources/settings.xml
+msgctxt "#32642"
+msgid "Retrieve background artwork for genre entries."
+msgstr "为类型条目获取背景艺术图。"
+
+#: /resources/settings.xml
+msgctxt "#32643"
+msgid "Retrieve background artwork for watch-provider entries."
+msgstr "为观看提供商条目获取背景艺术图。"
+
+#: /resources/settings.xml
+msgctxt "#32644"
+msgid "Choose the default player used for movies."
+msgstr "选择电影使用的默认播放器。"
+
+#: /resources/settings.xml
+msgctxt "#32645"
+msgid "Choose the default player used for TV episodes."
+msgstr "选择电视剧集使用的默认播放器。"
+
+#: /resources/settings.xml
+msgctxt "#32646"
+msgid "Automatically play using available providers instead of asking for a player."
+msgstr "自动使用可用提供商播放，不询问播放器。"
+
+#: /resources/settings.xml
+msgctxt "#32647"
+msgid "Choose how playback uses files already in the Kodi library."
+msgstr "选择播放时如何使用媒体库中已有的文件。"
+
+#: /resources/settings.xml
+msgctxt "#32648"
+msgid "Show one player entry per plugin instead of separate entries for each player."
+msgstr "每个插件只显示一个播放器条目，而不是为每个播放器分别显示。"
+
+#: /resources/settings.xml
+msgctxt "#32649"
+msgid "Include player definitions supplied with the add-on."
+msgstr "包含插件自带的播放器定义。"
+
+#: /resources/settings.xml
+msgctxt "#32650"
+msgid "Download player definitions from the URL you provide."
+msgstr "从你提供的 URL 下载播放器定义。"
+
+#: /resources/settings.xml
+msgctxt "#32651"
+msgid "Choose and customise the available player definitions."
+msgstr "选择并自定义可用的播放器定义。"
+
+#: /resources/settings.xml
+msgctxt "#32652"
+msgid "Ask for a TMDb rating after watching an item when signed in to TMDb."
+msgstr "登录 TMDb 后，观看条目后询问 TMDb 评分。"
+
+#: /resources/settings.xml
+msgctxt "#32653"
+msgid "Movies folder"
+msgstr "电影文件夹"
+
+#: /resources/settings.xml
+msgctxt "#32654"
+msgid "Choose where movie STRM and NFO files are created for the Kodi library."
+msgstr "选择为 Kodi 媒体库创建电影 STRM 和 NFO 文件的位置。"
+
+#: /resources/settings.xml
+msgctxt "#32655"
+msgid "Choose where TV show STRM and NFO files are created for the Kodi library."
+msgstr "选择为 Kodi 媒体库创建电视剧 STRM 和 NFO 文件的位置。"
+
+#: /resources/settings.xml
+msgctxt "#32656"
+msgid "Scan the Kodi library after adding items through TMDbHelper."
+msgstr "通过 TMDbHelper 添加条目后扫描 Kodi 媒体库。"
+
+#: /resources/settings.xml
+msgctxt "#32657"
+msgid "Automatically update library exports and add new or missing episodes."
+msgstr "自动更新媒体库导出，并添加新的或缺失的剧集。"
+
+#: /resources/settings.xml
+msgctxt "#32658"
+msgid "Choose the hour for the daily library update."
+msgstr "选择每日媒体库更新的时间（小时）。"
+
+#: /resources/settings.xml
+msgctxt "#32659"
+msgid "Choose the lists used to add items during automatic library updates."
+msgstr "选择自动媒体库更新期间用于添加条目的列表。"
+
+#: /resources/settings.xml
+msgctxt "#32660"
+msgid "Store the source-list identifiers used by automatic library updates."
+msgstr "存储自动媒体库更新使用的来源列表标识符。"
+
+#: /resources/settings.xml
+msgctxt "#32661"
+msgid "Choose which library exports to update now."
+msgstr "选择现在要更新哪些媒体库导出。"
+
+#: /resources/settings.xml
+msgctxt "#32662"
+msgid "Choose whether to add local Kodi library details to items."
+msgstr "选择是否将本地 Kodi 媒体库详情添加到条目。"
+
+#: /resources/settings.xml
+msgctxt "#32663"
+msgid "Refresh TMDbHelper's cached details from the local Kodi library."
+msgstr "从本地 Kodi 媒体库刷新 TMDbHelper 的缓存详情。"
+
+#: /resources/settings.xml
+msgctxt "#32664"
+msgid "Skip checks after creating library folders on systems that report new folders slowly."
+msgstr "在报告新文件夹较慢的系统上，创建媒体库文件夹后跳过检查。"
+
+#: /resources/settings.xml
+msgctxt "#32665"
+msgid "Use movie-tmdbhelper.nfo or tvshow-tmdbhelper.nfo instead of the standard NFO filename."
+msgstr "使用 movie-tmdbhelper.nfo 或 tvshow-tmdbhelper.nfo 代替标准 NFO 文件名。"
+
+#: /resources/settings.xml
+msgctxt "#32666"
+msgid "Connect your Trakt account to TMDbHelper."
+msgstr "将你的 Trakt 账号连接到 TMDbHelper。"
+
+#: /resources/settings.xml
+msgctxt "#32667"
+msgid "Disconnect your Trakt account from TMDbHelper."
+msgstr "断开你的 Trakt 账号与 TMDbHelper 的连接。"
+
+#: /resources/settings.xml
+msgctxt "#32668"
+msgid "Open settings"
+msgstr "打开设置"
+
+#: /resources/settings.xml
+msgctxt "#32669"
+msgid "Install MDbList support if needed, then open its provider settings."
+msgstr "如需要先安装 MDbList 支持，然后打开其提供商设置。"
+
+#: /resources/settings.xml
+msgctxt "#32670"
+msgid "Retain the legacy MDbList key until it is migrated to the provider module."
+msgstr "在迁移到提供商模块之前，保留旧版 MDbList 密钥。"
+
+#: /resources/settings.xml
+msgctxt "#32671"
+msgid "Enter your OMDb API key for additional ratings and metadata."
+msgstr "输入 OMDb API 密钥以获取额外评分和元数据。"
+
+#: /resources/settings.xml
+msgctxt "#32672"
+msgid "Enter your RatingPosterDB API key for posters with ratings."
+msgstr "输入 RatingPosterDB API 密钥以获取带评分的海报。"
+
+#: /resources/settings.xml
+msgctxt "#32673"
+msgid "Enter your Gemini API key for AI-assisted features."
+msgstr "输入 Gemini API 密钥以使用 AI 辅助功能。"
+
+#: /resources/settings.xml
+msgctxt "#32674"
+msgid "Enter your Fanart.tv client key for artwork lookups."
+msgstr "输入 Fanart.tv 客户端密钥以查询艺术图。"
+
+#: /resources/settings.xml
+msgctxt "#32675"
+msgid "Configure providers"
+msgstr "配置提供商"
+
+#: /resources/settings.xml
+msgctxt "#32676"
+msgid "Store the selected ratings providers and their priority order."
+msgstr "存储已选评分提供商及其优先级顺序。"
+
+#: /resources/settings.xml
+msgctxt "#32677"
+msgid "Choose a watchlist provider, install one, or select None to disable watchlist lists."
+msgstr "选择观看列表提供商、安装一个，或选择「无」以关闭观看列表。"
+
+#: /resources/settings.xml
+msgctxt "#32678"
+msgid "Choose a collection provider, install one, or select None to disable collection lists."
+msgstr "选择合集提供商、安装一个，或选择「无」以关闭合集列表。"
+
+#: /resources/settings.xml
+msgctxt "#32679"
+msgid "Choose a statistics provider, install one, or select None to disable statistics lists."
+msgstr "选择统计提供商、安装一个，或选择「无」以关闭统计列表。"
+
+#: /resources/settings.xml
+msgctxt "#32680"
+msgid "Choose a supported sync provider to install or enable."
+msgstr "选择要安装或启用的受支持同步提供商。"
+
+#: /resources/settings.xml
+msgctxt "#32681"
+msgid "Synchronise watched status and resume points with the selected history provider."
+msgstr "与所选历史记录提供商同步已观看状态和续播点。"
+
+#: /resources/settings.xml
+msgctxt "#32682"
+msgid "Clear cached synced user data so it can be downloaded again."
+msgstr "清除已缓存的同步用户数据，以便重新下载。"
+
+#: /resources/settings.xml
+msgctxt "#32683"
+msgid "Choose which watch providers are included in provider data lookups."
+msgstr "选择哪些观看提供商包含在提供商数据查询中。"
+
+#: /resources/settings.xml
+msgctxt "#32684"
+msgid "Allow the image monitor to fetch artwork from online sources."
+msgstr "允许图像监视器从在线来源获取艺术图。"
+
+#: /resources/settings.xml
+msgctxt "#32685"
+msgid "Allow the details monitor to fetch ratings from online sources."
+msgstr "允许详情监视器从在线来源获取评分。"
+
+#: /resources/settings.xml
+msgctxt "#32686"
+msgid "Use TMDbHelper artwork instead of the clearlogo supplied by the playback monitor."
+msgstr "使用 TMDbHelper 艺术图，而不是播放监视器提供的透明台标。"
+
+#: /resources/settings.xml
+msgctxt "#32687"
+msgid "Set how long the dummy video plays when resolving playback, in seconds."
+msgstr "设置解析播放时虚拟视频的播放时长（秒）。"
+
+#: /resources/settings.xml
+msgctxt "#32688"
+msgid "Set the delay after the dummy video stops before playback continues, in seconds."
+msgstr "设置虚拟视频停止后到继续播放之间的延迟（秒）。"
+
+#: /resources/settings.xml
+msgctxt "#32689"
+msgid "Restrict URL resolving to library STRM playback."
+msgstr "将 URL 解析限制为媒体库 STRM 播放。"
+
+#: /resources/settings.xml
+msgctxt "#32690"
+msgid "Refresh cached Kodi library details when building the player list."
+msgstr "构建播放器列表时刷新缓存的 Kodi 媒体库详情。"
+
+#: /resources/settings.xml
+msgctxt "#32691"
+msgid "Use the alternative TMDb API address for network compatibility."
+msgstr "为兼容网络环境，使用备用 TMDb API 地址。"
+
+#: /resources/settings.xml
+msgctxt "#32692"
+msgid "Set the maximum number of concurrent threads. Zero means unlimited."
+msgstr "设置最大并发线程数。0 表示不限制。"
+
+#: /resources/settings.xml
+msgctxt "#32693"
+msgid "Choose a custom location for TMDbHelper cache databases."
+msgstr "选择 TMDbHelper 缓存数据库的自定义位置。"
+
+#: /resources/settings.xml
+msgctxt "#32694"
+msgid "Choose a custom location for cached images."
+msgstr "选择缓存图像的自定义位置。"
+
+#: /resources/settings.xml
+msgctxt "#32695"
+msgid "Delete cached TMDb list details for troubleshooting. Lists will be downloaded again when needed."
+msgstr "删除缓存的 TMDb 列表详情以进行故障排查。需要时会重新下载列表。"
+
+#: /resources/settings.xml
+msgctxt "#32696"
+msgid "Write additional diagnostic information to the Kodi log."
+msgstr "将额外的诊断信息写入 Kodi 日志。"
+
+#: /resources/settings.xml
+msgctxt "#32697"
+msgid "Log the time taken to build directories."
+msgstr "记录构建目录所耗时间。"
+
+#: /resources/settings.xml
+msgctxt "#32698"
+msgid "Run a TMDb request and write its response to the Kodi log."
+msgstr "执行一次 TMDb 请求并将其响应写入 Kodi 日志。"
+
+#: /resources/settings.xml
+msgctxt "#32699"
+msgid "Run a Trakt request and write its response to the Kodi log."
+msgstr "执行一次 Trakt 请求并将其响应写入 Kodi 日志。"
+
+#: /resources/settings.xml
+msgctxt "#32700"
+msgid "Store the TVDb authentication token used by TMDbHelper."
+msgstr "存储 TMDbHelper 使用的 TVDb 身份验证令牌。"
+
+#: /resources/settings.xml
+msgctxt "#32701"
+msgid "Store the TMDb account authentication token used by TMDbHelper."
+msgstr "存储 TMDbHelper 使用的 TMDb 账号身份验证令牌。"
+
+#: /resources/settings.xml
+msgctxt "#32702"
+msgid "Store the Trakt account authentication token used by TMDbHelper."
+msgstr "存储 TMDbHelper 使用的 Trakt 账号身份验证令牌。"
+
+#: /resources/settings.xml
+msgctxt "#32703"
+msgid "Allow other plugins to access the saved OMDb API key."
+msgstr "允许其他插件访问已保存的 OMDb API 密钥。"
+
+#: /resources/settings.xml
+msgctxt "#32704"
+msgid "Allow other plugins to access the saved Fanart.tv client key."
+msgstr "允许其他插件访问已保存的 Fanart.tv 客户端密钥。"
+
+#: /resources/settings.xml
+msgctxt "#32705"
+msgid "Allow other plugins to access the saved TVDb token."
+msgstr "允许其他插件访问已保存的 TVDb 令牌。"
+
+#: /resources/settings.xml
+msgctxt "#32706"
+msgid "Allow other plugins to access the saved TMDb account token."
+msgstr "允许其他插件访问已保存的 TMDb 账号令牌。"
+
+#: /resources/settings.xml
+msgctxt "#32707"
+msgid "Allow other plugins to access the saved Trakt account token."
+msgstr "允许其他插件访问已保存的 Trakt 账号令牌。"
+
+#: /resources/settings.xml
+msgctxt "#32708"
+msgid "Regional"
+msgstr "地区"
+
+#: /resources/settings.xml
+msgctxt "#32709"
+msgid "Notifications"
+msgstr "通知"
+
+#: /resources/settings.xml
+msgctxt "#32710"
+msgid "Context menu"
+msgstr "右键菜单"
+
+#: /resources/settings.xml
+msgctxt "#32711"
+msgid "Navigation"
+msgstr "导航"
+
+#: /resources/settings.xml
+msgctxt "#32712"
+msgid "Extra seasons"
+msgstr "附加季"
+
+#: /resources/settings.xml
+msgctxt "#32713"
+msgid "Next episodes"
+msgstr "下一集"
+
+#: /resources/settings.xml
+msgctxt "#32714"
+msgid "Next movies"
+msgstr "待看新片"
+
+#: /resources/settings.xml
+msgctxt "#32715"
+msgid "Recommendations"
+msgstr "推荐"
+
+#: /resources/settings.xml
+msgctxt "#32716"
+msgid "Pagination"
+msgstr "分页"
+
+#: /resources/settings.xml
+msgctxt "#32717"
+msgid "Fanart.tv"
+msgstr "Fanart.tv"
+
+#: /resources/settings.xml
+msgctxt "#32718"
+msgid "Icons"
+msgstr "图标"
+
+#: /resources/settings.xml
+msgctxt "#32719"
+msgid "Backgrounds"
+msgstr "背景图"
+
+#: /resources/settings.xml
+msgctxt "#32720"
+msgid "Defaults"
+msgstr "默认值"
+
+#: /resources/settings.xml
+msgctxt "#32721"
+msgid "Configuration"
+msgstr "配置"
+
+#: /resources/settings.xml
+msgctxt "#32722"
+msgid "After playback"
+msgstr "播放后"
+
+#: /resources/settings.xml
+msgctxt "#32723"
+msgid "Folders"
+msgstr "文件夹"
+
+#: /resources/settings.xml
+msgctxt "#32724"
+msgid "Updates"
+msgstr "更新"
+
+#: /resources/settings.xml
+msgctxt "#32725"
+msgid "Local details"
+msgstr "本地详情"
+
+#: /resources/settings.xml
+msgctxt "#32726"
+msgid "MDbList"
+msgstr "MDbList"
+
+#: /resources/settings.xml
+msgctxt "#32727"
+msgid "API keys"
+msgstr "API 密钥"
+
+#: /resources/settings.xml
+msgctxt "#32728"
+msgid "Credentials"
+msgstr "凭据"
+
+#: /resources/settings.xml
+msgctxt "#32729"
+msgid "Status"
+msgstr "状态"
+
+#: /resources/settings.xml
+msgctxt "#32730"
+msgid "Maintenance"
+msgstr "维护"
+
+#: /resources/settings.xml
+msgctxt "#32731"
+msgid "Skin integration"
+msgstr "皮肤集成"
+
+#: /resources/settings.xml
+msgctxt "#32732"
+msgid "Playback"
+msgstr "播放"
+
+#: /resources/settings.xml
+msgctxt "#32733"
+msgid "Network"
+msgstr "网络"
+
+#: /resources/settings.xml
+msgctxt "#32734"
+msgid "Cache"
+msgstr "缓存"
+
+#: /resources/settings.xml
+msgctxt "#32735"
+msgid "Logging"
+msgstr "日志"
+
+#: /resources/settings.xml
+msgctxt "#32736"
+msgid "Gemini settings"
+msgstr "Gemini 设置"
+
+#: /resources/settings.xml
+msgctxt "#32737"
+msgid "Install or enable the Gemini module and open its API settings."
+msgstr "安装或启用 Gemini 模块并打开其 API 设置。"
+
+#: /resources/settings.xml
+msgctxt "#32738"
+msgid "TVDb settings"
+msgstr "TVDb 设置"
+
+#: /resources/settings.xml
+msgctxt "#32739"
+msgid "Install or enable the TVDb module and open its API settings."
+msgstr "安装或启用 TVDb 模块并打开其 API 设置。"
