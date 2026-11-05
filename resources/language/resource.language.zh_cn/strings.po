@@ -337,11 +337,6 @@ msgctxt "#32043"
 msgid "Up Next"
 msgstr "下个播放"
 
-#: /resources/tmdbhelper/lib/items/directories/mdblist/lists_sorting.py
-msgctxt "#32072"
-msgid "Score"
-msgstr "评分"
-
 #: /resources/lib/container.py
 msgctxt "#32044"
 msgid "Enter Search Query"
@@ -371,11 +366,6 @@ msgstr "重试"
 msgctxt "#32058"
 msgid "The provided URL is either invalid or inaccesible."
 msgstr "提供的网址无效或不可访问。"
-
-#: /resources/tmdbhelper/lib/items/directories/mdblist/lists_sorting.py
-msgctxt "#32079"
-msgid "User"
-msgstr "用户"
 
 #: /resources/lib/downloader.py
 msgctxt "#32059"
@@ -676,7 +666,7 @@ msgstr "使用 Google Gemini AI 需要开发者 API 密钥。"
 #: /resources/tmdbhelper/lib/items/directories/tmdb/lists_gemini.py
 msgctxt "#32151"
 msgid "Visit [B]{}[/B] to generate your key and then input into TMDbHelper settings under the API keys section."
-msgstr "访问 [B]{}[/B] 生成密钥，然后在 TMDbHelper 设置中的 “API 密钥” 板块输入该密钥。"
+msgstr "访问 [B]{}[/B] 生成密钥，然后在 TMDbHelper 设置中的 "API 密钥" 板块输入该密钥。"
 
 #: /resources/tmdbhelper/lib/items/directories/base/basedir_nodes.py
 msgctxt "#32152"
@@ -1783,11 +1773,6 @@ msgstr "删除 TMDb 缓存的列表详情"
 msgctxt "#32399"
 msgid "Retrieving Artwork"
 msgstr "正在获取艺术图"
-
-#: /resources/settings.xml
-msgctxt "#32402"
-msgid "Scrobble items on MDbList while watching"
-msgstr "观看时向 MDbList 同步播放记录"
 
 #: /resources/settings.xml
 msgctxt "#32403"

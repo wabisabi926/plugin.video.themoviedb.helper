@@ -37,10 +37,6 @@ class RatingsDict(BaseList):
         return self.get_mediatype()
 
     @cached_property
-    def trakt_type(self):
-        return self.get_trakt_type()
-
-    @cached_property
     def imdb_id(self):
         return self.get_imdb_id()
 
@@ -54,14 +50,10 @@ class RatingsDict(BaseList):
         if self.tmdb_type == 'tv':
             return 'tvshow'
 
-    def get_trakt_type(self):
-        if self.tmdb_type == 'movie':
-            return 'movie'
-        if self.tmdb_type == 'tv':
-            return 'show'
-
     def get_imdb_id(self):
-        return FindQueriesDatabase().get_trakt_id(self.tmdb_id, 'tmdb', self.trakt_type, 'imdb')
+        database = FindQueriesDatabase()
+        database.tmdb_api = self.common_apis.tmdb_api
+        return database.get_external_ids(self.tmdb_type, self.tmdb_id).get('imdb')
 
     def get_imdb_top250_list(self):
         return FindQueriesDatabase().get_imdb_top250_list_cached(self.tmdb_type)
@@ -130,7 +122,7 @@ class RatingsDict(BaseList):
             return data or {}
 
         # precache some property values before threading
-        for attr in ('mediatype', 'trakt_type', 'imdb_id', 'ratings_suppliers'):
+        for attr in ('mediatype', 'imdb_id', 'ratings_suppliers'):
             getattr(self, attr)
 
         with ParallelThread(self.rating_attribs, get_data_attr) as pt:
@@ -219,9 +211,6 @@ class RatingsSeasonsDict(RatingsDict):
 
     def get_mediatype(self):
         return 'season'
-
-    def get_trakt_type(self):
-        return 'show'
 
     def get_online_data_mapped(self):
         if self.season is None:
