@@ -1770,8 +1770,8 @@ msgstr "快速更新"
 
 #: /resources/settings.xml
 msgctxt "#32395"
-msgid "Directory timings"
-msgstr "目录计时"
+msgid "Timer reports"
+msgstr "计时报告"
 
 #: /resources/settings.xml
 msgctxt "#32397"
@@ -3250,8 +3250,8 @@ msgstr "将额外的诊断信息写入 Kodi 日志。"
 
 #: /resources/settings.xml
 msgctxt "#32697"
-msgid "Log the time taken to build directories."
-msgstr "记录构建目录所耗时间。"
+msgid "Disabled collects no timer reports. Basic collects directory timer reports. Detailed also collects item detail timer reports."
+msgstr "「已禁用」不收集计时报告。「基础」收集目录计时报告。「详细」还会收集条目详情计时报告。"
 
 #: /resources/settings.xml
 msgctxt "#32698"
@@ -3545,40 +3545,50 @@ msgstr "退出你的 TMDb 账户并移除已保存的认证令牌。"
 
 #: /resources/settings.xml
 msgctxt "#32759"
+msgid "Basic"
+msgstr "基础"
+
+#: /resources/settings.xml
+msgctxt "#32760"
+msgid "Detailed"
+msgstr "详细"
+
+#: /resources/settings.xml
+msgctxt "#32761"
 msgid "By airdate"
 msgstr "按播出日期"
 
 #: /resources/settings.xml
-msgctxt "#32760"
+msgctxt "#32762"
 msgid "By recently watched"
 msgstr "按最近观看"
 
 #: /resources/settings.xml
-msgctxt "#32761"
+msgctxt "#32763"
 msgid "Today's episodes"
 msgstr "今日剧集"
 
 #: /resources/settings.xml
-msgctxt "#32762"
+msgctxt "#32764"
 msgid "Last week's episodes"
 msgstr "上周剧集"
 
 #: /resources/tmdbhelper/lib/script/method/tmdb.py
-msgctxt "#32763"
+msgctxt "#32765"
 msgid "Choose mediatype"
 msgstr "选择媒体类型"
 
 #: /resources/tmdbhelper/lib/sync/providers/tmdb/actions/userlist.py
-msgctxt "#32764"
+msgctxt "#32766"
 msgid "List name"
 msgstr "列表名称"
 
 #: /resources/tmdbhelper/lib/sync/providers/tmdb/actions/userlist.py
-msgctxt "#32765"
+msgctxt "#32767"
 msgid "List description"
 msgstr "列表描述"
 
 #: /resources/tmdbhelper/lib/script/method/modify_identifier.py
-msgctxt "#32766"
+msgctxt "#32768"
 msgid "TMDb ID"
 msgstr "TMDb ID"

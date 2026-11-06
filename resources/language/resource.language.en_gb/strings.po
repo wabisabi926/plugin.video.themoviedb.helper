@@ -1754,7 +1754,7 @@ msgstr ""
 
 #: /resources/settings.xml
 msgctxt "#32395"
-msgid "Directory timings"
+msgid "Timer reports"
 msgstr ""
 
 #: /resources/settings.xml
@@ -3230,7 +3230,7 @@ msgstr ""
 
 #: /resources/settings.xml
 msgctxt "#32697"
-msgid "Log the time taken to build directories."
+msgid "Disabled collects no timer reports. Basic collects directory timer reports. Detailed also collects item detail timer reports."
 msgstr ""
 
 #: /resources/settings.xml
@@ -3525,40 +3525,50 @@ msgstr ""
 
 #: /resources/settings.xml
 msgctxt "#32759"
+msgid "Basic"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32760"
+msgid "Detailed"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32761"
 msgid "By airdate"
 msgstr "By airdate"
 
 #: /resources/settings.xml
-msgctxt "#32760"
+msgctxt "#32762"
 msgid "By recently watched"
 msgstr "By recently watched"
 
 #: /resources/settings.xml
-msgctxt "#32761"
+msgctxt "#32763"
 msgid "Today's episodes"
 msgstr "Today's episodes"
 
 #: /resources/settings.xml
-msgctxt "#32762"
+msgctxt "#32764"
 msgid "Last week's episodes"
 msgstr "Last week's episodes"
 
 #: /resources/tmdbhelper/lib/script/method/tmdb.py
-msgctxt "#32763"
+msgctxt "#32765"
 msgid "Choose mediatype"
 msgstr "Choose mediatype"
 
 #: /resources/tmdbhelper/lib/sync/providers/tmdb/actions/userlist.py
-msgctxt "#32764"
+msgctxt "#32766"
 msgid "List name"
 msgstr "List name"
 
 #: /resources/tmdbhelper/lib/sync/providers/tmdb/actions/userlist.py
-msgctxt "#32765"
+msgctxt "#32767"
 msgid "List description"
 msgstr "List description"
 
 #: /resources/tmdbhelper/lib/script/method/modify_identifier.py
-msgctxt "#32766"
+msgctxt "#32768"
 msgid "TMDb ID"
 msgstr "TMDb ID"
