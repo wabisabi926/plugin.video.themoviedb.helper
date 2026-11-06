@@ -3522,3 +3522,43 @@ msgstr ""
 msgctxt "#32758"
 msgid "Sign out of your TMDb account and remove the saved authentication token."
 msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32759"
+msgid "By airdate"
+msgstr "By airdate"
+
+#: /resources/settings.xml
+msgctxt "#32760"
+msgid "By recently watched"
+msgstr "By recently watched"
+
+#: /resources/settings.xml
+msgctxt "#32761"
+msgid "Today's episodes"
+msgstr "Today's episodes"
+
+#: /resources/settings.xml
+msgctxt "#32762"
+msgid "Last week's episodes"
+msgstr "Last week's episodes"
+
+#: /resources/tmdbhelper/lib/script/method/tmdb.py
+msgctxt "#32763"
+msgid "Choose mediatype"
+msgstr "Choose mediatype"
+
+#: /resources/tmdbhelper/lib/sync/providers/tmdb/actions/userlist.py
+msgctxt "#32764"
+msgid "List name"
+msgstr "List name"
+
+#: /resources/tmdbhelper/lib/sync/providers/tmdb/actions/userlist.py
+msgctxt "#32765"
+msgid "List description"
+msgstr "List description"
+
+#: /resources/tmdbhelper/lib/script/method/modify_identifier.py
+msgctxt "#32766"
+msgid "TMDb ID"
+msgstr "TMDb ID"

@@ -99,7 +99,7 @@ def delete_itemtype(mediatype=None, confirmation=True, **kwargs):
 
     if not mediatype:
         choices = [i for i in routes.keys()]
-        x = Dialog().select('Choose mediatype', choices)
+        x = Dialog().select(get_localized(32763), choices)
         if x == -1:
             return
         mediatype = choices[x]

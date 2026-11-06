@@ -3549,3 +3549,43 @@ msgstr "使用网页浏览器或二维码登录你的 TMDb 账户。"
 msgctxt "#32758"
 msgid "Sign out of your TMDb account and remove the saved authentication token."
 msgstr "退出你的 TMDb 账户并移除已保存的认证令牌。"
+
+#: /resources/settings.xml
+msgctxt "#32759"
+msgid "By airdate"
+msgstr "按播出日期"
+
+#: /resources/settings.xml
+msgctxt "#32760"
+msgid "By recently watched"
+msgstr "按最近观看"
+
+#: /resources/settings.xml
+msgctxt "#32761"
+msgid "Today's episodes"
+msgstr "今日剧集"
+
+#: /resources/settings.xml
+msgctxt "#32762"
+msgid "Last week's episodes"
+msgstr "上周剧集"
+
+#: /resources/tmdbhelper/lib/script/method/tmdb.py
+msgctxt "#32763"
+msgid "Choose mediatype"
+msgstr "选择媒体类型"
+
+#: /resources/tmdbhelper/lib/sync/providers/tmdb/actions/userlist.py
+msgctxt "#32764"
+msgid "List name"
+msgstr "列表名称"
+
+#: /resources/tmdbhelper/lib/sync/providers/tmdb/actions/userlist.py
+msgctxt "#32765"
+msgid "List description"
+msgstr "列表描述"
+
+#: /resources/tmdbhelper/lib/script/method/modify_identifier.py
+msgctxt "#32766"
+msgid "TMDb ID"
+msgstr "TMDb ID"

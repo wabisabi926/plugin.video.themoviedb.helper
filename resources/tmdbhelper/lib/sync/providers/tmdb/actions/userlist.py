@@ -50,12 +50,12 @@ class ItemUserListChoiceNew(ItemUserListChoice):
     @cached_property
     def list_name(self):
         from xbmcgui import Dialog
-        return Dialog().input('List name')
+        return Dialog().input(get_localized(32764))
 
     @cached_property
     def list_description(self):
         from xbmcgui import Dialog
-        return Dialog().input('List description')
+        return Dialog().input(get_localized(32765))
 
     @cached_property
     def list_public(self):

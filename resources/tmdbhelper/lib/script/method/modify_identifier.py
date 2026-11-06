@@ -99,7 +99,7 @@ class ModifyIdentifier:
 
     def get_manual_tmdb_id(self):
         x = xbmcgui.Dialog().input(
-            'TMDb ID',
+            get_localized(32766),
             type=xbmcgui.INPUT_NUMERIC,
             defaultt=f'{self.listitem_monitor_item.tmdb_id or ""}'
         )
@@ -107,7 +107,7 @@ class ModifyIdentifier:
 
     def get_tmdb_id(self):
         x = xbmcgui.Dialog().yesnocustom(
-            'TMDb ID',
+            get_localized(32766),
             get_localized(32087),
             yeslabel=get_localized(137),
             nolabel=get_localized(413),
