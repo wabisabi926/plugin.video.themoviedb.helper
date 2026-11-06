@@ -3534,3 +3534,18 @@ msgstr "选择 TMDb 海报和演员头像的分辨率，或使用默认图像质
 msgctxt "#32755"
 msgid "Choose the resolution of TMDb fanart, landscape, and extra fanart, or use the default image quality setting."
 msgstr "选择 TMDb 背景图、横向图和额外背景图的分辨率，或使用默认图像质量设置。"
+
+#: /resources/settings.xml
+msgctxt "#32756"
+msgid "TMDb account"
+msgstr "TMDb 账户"
+
+#: /resources/settings.xml
+msgctxt "#32757"
+msgid "Sign in to your TMDb account using a web browser or QR code."
+msgstr "使用网页浏览器或二维码登录你的 TMDb 账户。"
+
+#: /resources/settings.xml
+msgctxt "#32758"
+msgid "Sign out of your TMDb account and remove the saved authentication token."
+msgstr "退出你的 TMDb 账户并移除已保存的认证令牌。"
