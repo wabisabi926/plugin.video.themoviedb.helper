@@ -176,7 +176,7 @@ msgstr "播放进度"
 #: /resources/tmdbhelper/lib/script/method/trakt.py
 msgctxt "#32036"
 msgid "Dropped"
-msgstr "已丢弃"
+msgstr "已移除"
 
 msgctxt "#30024"
 msgid "Persian (Iran)"
@@ -380,7 +380,7 @@ msgstr "使用…播放"
 #: /resources/lib/context.py
 msgctxt "#32066"
 msgid "Debug logging"
-msgstr "调试记录"
+msgstr "调试日志"
 
 #: /resources/settings.xml
 msgctxt "#32070"
@@ -586,7 +586,7 @@ msgstr "你想将此列表设为公开列表还是私有列表？"
 #: /resources/tmdbhelper/lib/script/sync/tmdb/userlist.py
 msgctxt "#32137"
 msgid "Public or private list?"
-msgstr "公开名单还是私有名单？"
+msgstr "公开列表还是私有列表？"
 
 #: /resources/settings.xml
 msgctxt "#32138"
@@ -666,7 +666,7 @@ msgstr "XBMC 虚拟文件系统报告无法创建路径"
 #: /resources/lib/context.py
 msgctxt "#32123"
 msgid "If error persists and the folders are created correctly, please disable folder path creation checking in TMDBHelper settings."
-msgstr "如果错误仍然存在并且文件夹创建正确，请在 TMDBHelper 设置中禁用文件夹路径检查。"
+msgstr "如果错误仍然存在并且文件夹创建正确，请在 TMDbHelper 设置中禁用文件夹路径检查。"
 
 #: /resources/lib/context.py
 msgctxt "#32125"
@@ -730,7 +730,7 @@ msgstr "正在更新"
 #: /resources/lib/libraryupdate.py
 msgctxt "#32168"
 msgid "[B]{}[/B] by user [B]{}[/B]"
-msgstr "[B]{}[/B] 通过用户 [B]{}[/B]"
+msgstr "[B]{}[/B]（由用户 [B]{}[/B] 创建）"
 
 #: /resources/settings.xml
 msgctxt "#32169"
@@ -900,7 +900,7 @@ msgstr "你的"
 #: /resources/lib/plugin.py
 msgctxt "#32202"
 msgid "Airing This Week"
-msgstr "本周上映"
+msgstr "本周播出"
 
 #: /resources/lib/plugin.py
 msgctxt "#32203"
@@ -975,12 +975,12 @@ msgstr "你的列表"
 #: /resources/lib/traktapi.py
 msgctxt "#32212"
 msgid "Trakt user account logout"
-msgstr "Trakt 用户帐户注销"
+msgstr "Trakt 用户账户注销"
 
 #: /resources/lib/traktapi.py
 msgctxt "#32213"
 msgid "Do you wish to logout of your Trakt account?"
-msgstr "你想注销你的 Trakt 帐户吗？"
+msgstr "你想注销你的 Trakt 账户吗？"
 
 #: /resources/lib/traktapi.py
 msgctxt "#32214"
@@ -995,7 +995,7 @@ msgstr "注销失败！"
 #: /resources/lib/traktapi.py
 msgctxt "#32216"
 msgid "Successfully logged out of Trakt user account"
-msgstr "成功注销 Trakt 用户帐户"
+msgstr "成功注销 Trakt 用户账户"
 
 #: /resources/tmdbhelper/lib/addon/consts.py
 msgctxt "#32234"
@@ -1325,25 +1325,21 @@ msgstr "已结束"
 #: /resources/lib/script.py
 msgctxt "#32295"
 msgid "Trakt options"
-msgstr "Trakt 设置"
+msgstr "Trakt 选项"
 
 #: /resources/lib/script.py
 msgctxt "#32296"
 msgid ""
 "{} failed for {}!\n"
 "{} ID {}"
-msgstr ""
-"{} 失败{}!\n"
-"{} ID {}"
+msgstr "{} 操作失败：{}！\n{} ID {}"
 
 #: /resources/lib/script.py
 msgctxt "#32297"
 msgid ""
 "{} was successful for {}!\n"
 "{} ID {}"
-msgstr ""
-"{} 已成功用于 {}!\n"
-"{} ID {}"
+msgstr "{} 操作成功：{}！\n{} ID {}"
 
 #: /resources/lib/syncitem.py
 msgctxt "#32298"
@@ -1398,7 +1394,7 @@ msgstr "浏览排序列表"
 #: /resources/lib/window/manager.py
 msgctxt "#32310"
 msgid "TMDb ID for {} not found!"
-msgstr "在 TMDB 未找到 {} !"
+msgstr "未找到 {} 的 TMDb ID！"
 
 #: /resources/tmdbhelper/lib/addon/consts.py
 msgctxt "#32323"
@@ -1418,7 +1414,7 @@ msgstr "编辑筛选条件"
 #: /resources/lib/player/players.py
 msgctxt "#32311"
 msgid "Clear default player"
-msgstr "清除自带播放器"
+msgstr "清除默认播放器"
 
 #: /resources/lib/helpers/update.py
 msgctxt "#32312"
@@ -1447,7 +1443,7 @@ msgstr "添加到人气列表"
 #: /resources/lib/trakt/api.py
 msgctxt "#32316"
 msgid "Successfully {} list!"
-msgstr "列表成功 {} ！"
+msgstr "已成功{}列表！"
 
 #: /resources/lib/trakt/api.py
 msgctxt "#32317"
@@ -1457,7 +1453,7 @@ msgstr "无法{}列表！"
 #: /resources/lib/trakt/api.py
 msgctxt "#32318"
 msgid "Error code: {}"
-msgstr "错误代码: {}"
+msgstr "错误代码：{}"
 
 #: /resources/lib/trakt/api.py
 msgctxt "#32319"
@@ -1492,7 +1488,7 @@ msgstr "上月"
 #: /resources/lib/player/configure.py
 msgctxt "#32328"
 msgid "Select Player to Configure"
-msgstr "选择播放器设置"
+msgstr "选择要配置的播放器"
 
 #: /resources/settings.xml
 msgctxt "#32329"
@@ -1609,10 +1605,7 @@ msgid ""
 "Are you sure you want to delete [B]{}[/B]?\n"
 "\n"
 "This action cannot be undone."
-msgstr ""
-"确定删除 [B]{}[/B]?\n"
-"\n"
-"未完成."
+msgstr "确定删除 [B]{}[/B]？\n\n此操作无法撤消。"
 
 #: /resources/lib/script/router.py
 msgctxt "#32358"
@@ -1868,7 +1861,7 @@ msgstr "新建剧集播放列表"
 #: /resources/lib/player/configure.py
 msgctxt "#32425"
 msgid "Have TMDbHelper queue all episodes in a playlist when playing an episode using this player?"
-msgstr "使用此播放器播放剧集时，是否需要 TMDbHelper 将列表中分集排序?"
+msgstr "使用此播放器播放剧集时，是否需要 TMDbHelper 将所有剧集加入播放列表排队？"
 
 #: /resources/lib/player/configure.py
 msgctxt "#32426"
@@ -1888,17 +1881,17 @@ msgstr "浏览电影搜索网址"
 #: /resources/lib/player/configure.py
 msgctxt "#32429"
 msgid "Browse for TVSHOW search url"
-msgstr "剧集浏览搜索网址"
+msgstr "浏览剧集搜索网址"
 
 #: /resources/lib/player/configure.py
 msgctxt "#32430"
 msgid "Enter a name for this player"
-msgstr "为播放器新建名称"
+msgstr "为此播放器输入名称"
 
 #: /resources/lib/player/configure.py
 msgctxt "#32431"
 msgid "Use the same search URL for tvshows as movies?"
-msgstr "搜索电影和剧集使用同样网址的吗？"
+msgstr "电影和剧集使用相同的搜索网址吗？"
 
 #: /resources/lib/player/configure.py
 msgctxt "#32432"
@@ -1913,7 +1906,7 @@ msgstr "网址中缺少 QUERYKEY"
 #: /resources/lib/player/configure.py
 msgctxt "#32434"
 msgid "You must insert QUERYKEY where the search query for the URL goes"
-msgstr "你必须在搜索网址时插入 QUERYKEY"
+msgstr "必须在网址中放置搜索词的位置插入 QUERYKEY"
 
 #: /resources/lib/player/configure.py
 msgctxt "#32435"
@@ -1938,12 +1931,12 @@ msgstr "首选英文备用"
 #: /resources/lib/script/method.py
 msgctxt "#32438"
 msgid "Provider allowlist updated"
-msgstr "提供程序允许列表已更新"
+msgstr "提供商白名单已更新"
 
 #: /resources/lib/script/method.py
 msgctxt "#32439"
 msgid "The provider allowlist has been updated."
-msgstr "提供程序列表已更新。"
+msgstr "提供商白名单已更新。"
 
 #: /resources/lib/player/configure.py
 msgctxt "#32440"
@@ -1968,7 +1961,7 @@ msgstr "选择要与 {} 匹配的值"
 #: /resources/lib/player/configure.py
 msgctxt "#32444"
 msgid "Select rule or listitem key"
-msgstr "选择规则或列表项密钥"
+msgstr "选择规则或列表项键"
 
 #: /resources/lib/player/configure.py
 msgctxt "#32445"
@@ -2018,7 +2011,7 @@ msgstr "媒体库下一集"
 #: /resources/lib/items/basedir.py
 msgctxt "#32459"
 msgid "Your Episodes Airing Next"
-msgstr "你的下一个播放分集"
+msgstr "你接下来播出的剧集"
 
 #: /resources/settings.xml
 msgctxt "#32463"
@@ -2083,7 +2076,7 @@ msgstr "选择默认播放器"
 #: /resources/lib/script/method.py
 msgctxt "#32477"
 msgid "Change default player for tvshow, season, or episode"
-msgstr "更改剧集默认播放器"
+msgstr "更改电视剧、季或剧集的默认播放器"
 
 #: /resources/settings.xml
 msgctxt "#32481"
@@ -2103,7 +2096,7 @@ msgstr "共享凭据"
 #: /resources/tmdbhelper/lib/script/sync.py
 msgctxt "#32485"
 msgid "Add rating"
-msgstr "增加评分"
+msgstr "添加评分"
 
 #: /resources/tmdbhelper/lib/api/tmdb/discover.py
 msgctxt "#32486"
@@ -2123,17 +2116,17 @@ msgstr "分级认证大于等于"
 #: /resources/tmdbhelper/lib/script/sync.py
 msgctxt "#32489"
 msgid "Change rating"
-msgstr "改变评分"
+msgstr "修改评分"
 
 #: /resources/tmdbhelper/lib/script/sync.py
 msgctxt "#32490"
 msgid "Add to favourites"
-msgstr "添加到收藏夹"
+msgstr "添加到收藏"
 
 #: /resources/tmdbhelper/lib/script/sync.py
 msgctxt "#32491"
 msgid "Remove from favourites"
-msgstr "从收藏夹移除"
+msgstr "从收藏中移除"
 
 #: /resources/tmdbhelper/lib/script/method.py
 msgctxt "#32492"
@@ -2143,12 +2136,12 @@ msgstr "{} 已存在于 {} 中！"
 #: /resources/tmdbhelper/lib/script/method.py
 msgctxt "#32493"
 msgid "Successfully removed {} from {}"
-msgstr "成功移除 {} 从 {}"
+msgstr "已从 {} 中移除 {}"
 
 #: /resources/tmdbhelper/lib/script/method.py
 msgctxt "#32494"
 msgid "Successfully added {} to {}"
-msgstr "成功添加 {} 到 {}"
+msgstr "已将 {} 添加到 {}"
 
 #: /resources/tmdbhelper/lib/script/method.py
 msgctxt "#32495"
@@ -2219,7 +2212,7 @@ msgstr "TMDb"
 #: /resources/tmdbhelper/lib/addon/consts.py
 msgctxt "#32521"
 msgid "Rated"
-msgstr "分级"
+msgstr "已评分"
 
 #: /resources/settings.xml
 msgctxt "#32522"
@@ -2321,7 +2314,7 @@ msgstr "同步选项"
 #: /resources/tmdbhelper/lib/script/sync/provider_setup.py
 msgctxt "#32550"
 msgid "TMDbHelper Sync Provider"
-msgstr "TMDbHelper 同步提供方"
+msgstr "TMDbHelper 同步提供商"
 
 #: /resources/tmdbhelper/lib/script/sync/provider_install.py
 msgctxt "#32551"
@@ -2341,12 +2334,12 @@ msgstr "为 {0} 选择功能"
 #: /resources/tmdbhelper/lib/script/method/sync_provider.py
 msgctxt "#32554"
 msgid "{0} does not support {1}. Choose another provider for this list."
-msgstr "{0} 不支持 {1}。请为此列表选择其他提供方。"
+msgstr "{0} 不支持 {1}。请为此列表选择其他提供商。"
 
 #: /resources/tmdbhelper/lib/script/sync/provider_setup.py
 msgctxt "#32555"
 msgid "{0} requires a sync provider. Choose a provider to use, install or enable. Installation uses your installed repositories."
-msgstr "{0} 需要同步提供方。请选择要使用的提供方，并进行安装或启用。安装将使用你已安装的软件源。"
+msgstr "{0} 需要同步提供商。请选择要使用的提供商，并进行安装或启用。安装将使用你已安装的软件源。"
 
 #: /resources/tmdbhelper/lib/script/sync/provider_setup.py
 msgctxt "#32556"
@@ -2371,7 +2364,7 @@ msgstr "{0}（启用）"
 #: /resources/tmdbhelper/lib/script/sync/provider_default.py
 msgctxt "#32560"
 msgid "Set {0} as the default sync provider? This clears all current provider selections and uses {0} for every feature it supports."
-msgstr "将 {0} 设为默认同步提供方？这会清除当前所有提供方选择，并在其支持的所有功能中使用 {0}。"
+msgstr "将 {0} 设为默认同步提供商？这会清除当前所有提供商选择，并在其支持的所有功能中使用 {0}。"
 
 #: /resources/tmdbhelper/lib/script/sync/provider_default.py
 msgctxt "#32561"
@@ -2476,7 +2469,7 @@ msgstr "TMDbHelper 中不提供路由「{0}」。它可能在 {1} 同步模块�
 #: /resources/settings.xml
 msgctxt "#32581"
 msgid "Ratings providers"
-msgstr "评分提供方"
+msgstr "评分提供商"
 
 #: /resources/settings.xml
 msgctxt "#32582"
@@ -2511,7 +2504,7 @@ msgstr "下移"
 #: /resources/tmdbhelper/lib/script/ratings/providers.py
 msgctxt "#32588"
 msgid "No ratings providers are installed."
-msgstr "未安装任何评分提供方。"
+msgstr "未安装任何评分提供商。"
 
 #: /resources/settings.xml
 msgctxt "#32591"
@@ -2690,11 +2683,11 @@ msgstr "普通话（中国）"
 
 msgctxt "#30065"
 msgid "Mandarin (Hong Kong)"
-msgstr "普通话（香港）"
+msgstr "普通话（中国香港）"
 
 msgctxt "#30066"
 msgid "Mandarin (Taiwan)"
-msgstr "普通话（台湾）"
+msgstr "普通话（中国台湾）"
 
 msgctxt "#30067"
 msgid "Zulu (South Africa)"
@@ -2738,7 +2731,7 @@ msgstr "令牌"
 #: /resources/lib/traktapi.py
 msgctxt "#32012"
 msgid "You must authenticate your Trakt account to use this feature."
-msgstr "你必须验证你的 Trakt 帐户才能使用此功能。"
+msgstr "你必须验证你的 Trakt 账户才能使用此功能。"
 
 #: /resources/settings.xml
 msgctxt "#32014"
@@ -2858,7 +2851,7 @@ msgstr "在条目右键菜单中显示同步操作。"
 #: /resources/settings.xml
 msgctxt "#32615"
 msgid "Show TMDb account actions in the item context menu."
-msgstr "在条目右键菜单中显示 TMDb 账号操作。"
+msgstr "在条目右键菜单中显示 TMDb 账户操作。"
 
 #: /resources/settings.xml
 msgctxt "#32616"
@@ -3113,12 +3106,12 @@ msgstr "使用 movie-tmdbhelper.nfo 或 tvshow-tmdbhelper.nfo 代替标准 NFO �
 #: /resources/settings.xml
 msgctxt "#32666"
 msgid "Connect your Trakt account to TMDbHelper."
-msgstr "将你的 Trakt 账号连接到 TMDbHelper。"
+msgstr "将你的 Trakt 账户连接到 TMDbHelper。"
 
 #: /resources/settings.xml
 msgctxt "#32667"
 msgid "Disconnect your Trakt account from TMDbHelper."
-msgstr "断开你的 Trakt 账号与 TMDbHelper 的连接。"
+msgstr "断开你的 Trakt 账户与 TMDbHelper 的连接。"
 
 #: /resources/settings.xml
 msgctxt "#32668"
@@ -3273,12 +3266,12 @@ msgstr "执行一次 Trakt 请求并将其响应写入 Kodi 日志。"
 #: /resources/settings.xml
 msgctxt "#32701"
 msgid "Store the TMDb account authentication token used by TMDbHelper."
-msgstr "存储 TMDbHelper 使用的 TMDb 账号身份验证令牌。"
+msgstr "存储 TMDbHelper 使用的 TMDb 账户身份验证令牌。"
 
 #: /resources/settings.xml
 msgctxt "#32702"
 msgid "Store the Trakt account authentication token used by TMDbHelper."
-msgstr "存储 TMDbHelper 使用的 Trakt 账号身份验证令牌。"
+msgstr "存储 TMDbHelper 使用的 Trakt 账户身份验证令牌。"
 
 #: /resources/settings.xml
 msgctxt "#32703"
@@ -3293,12 +3286,12 @@ msgstr "允许其他插件访问已保存的 Fanart.tv 客户端密钥。"
 #: /resources/settings.xml
 msgctxt "#32706"
 msgid "Allow other plugins to access the saved TMDb account token."
-msgstr "允许其他插件访问已保存的 TMDb 账号令牌。"
+msgstr "允许其他插件访问已保存的 TMDb 账户令牌。"
 
 #: /resources/settings.xml
 msgctxt "#32707"
 msgid "Allow other plugins to access the saved Trakt account token."
-msgstr "允许其他插件访问已保存的 Trakt 账号令牌。"
+msgstr "允许其他插件访问已保存的 Trakt 账户令牌。"
 
 #: /resources/settings.xml
 msgctxt "#32708"
