@@ -2,6 +2,7 @@
 """
 Douban rating API for TMDB Helper.
 Fetches movie rating by IMDb ID via Legacy or Frodo API (load balanced).
+Each endpoint falls back to the other when it fails or has no rating.
 Returns douban_rating (0-100) and douban_votes for the ratings provider.
 """
 
@@ -104,6 +105,35 @@ def _frodo_search_by_imdb(imdbid):
     return {"average": avg, "numRaters": count}
 
 
+class DoubanRatingLookup:
+    """Load balance both Douban endpoints and fall back to the other on failure."""
+
+    def __init__(self, imdb_id):
+        self.imdb_id = imdb_id
+        self.lookup_paths = self.get_lookup_paths()
+
+    def get_lookup_paths(self):
+        paths = (_frodo_search_by_imdb, _legacy_imdb_lookup)
+        if random.random() < FRODO_RATING_PROBABILITY:
+            return paths
+        return paths[::-1]
+
+    @property
+    def rating_data(self):
+        return self.get_rating_data()
+
+    def get_rating_data(self):
+        for lookup in self.lookup_paths:
+            try:
+                data = lookup(self.imdb_id)
+                if data.get("average") is None:
+                    continue
+            except Exception:
+                continue  # A failed or unrated endpoint is retried via the other path
+            return data
+        return {}
+
+
 class DoubanAPI(object):
     """
     Fetches Douban rating by IMDb ID. Returns douban_rating / douban_votes
@@ -117,16 +147,7 @@ class DoubanAPI(object):
         """
         if not imdb_id or not (isinstance(imdb_id, str) and imdb_id.startswith("tt")):
             return {}
-        try:
-            if random.random() < FRODO_RATING_PROBABILITY:
-                try:
-                    raw = _frodo_search_by_imdb(imdb_id)
-                except Exception:
-                    raw = _legacy_imdb_lookup(imdb_id)
-            else:
-                raw = _legacy_imdb_lookup(imdb_id)
-        except Exception:
-            return {}
+        raw = DoubanRatingLookup(imdb_id).rating_data
         average = raw.get("average")
         num_raters = raw.get("numRaters")
         if average is None:
