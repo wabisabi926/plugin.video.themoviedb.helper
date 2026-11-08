@@ -12,13 +12,16 @@ from tmdbhelper.lib.addon.logger import kodi_log
 from tmdbhelper.lib.addon.tmdate import get_datetime_now
 from tmdbhelper.lib.files.futils import write_to_file
 from tmdbhelper.lib.items.database.details.backend import DetailsBackend
-from tmdbhelper.lib.items.database.details.coordinator import DetailsCoordinator
 from tmdbhelper.lib.items.database.details.protocol import DetailsServiceError, encode_message
 from tmdbhelper.lib.items.database.details.profiling_details import (
     DetailsMemoryEstimate, DetailsWorkProfiler, ProfiledDetailsDatabase, ProfiledItemMetadataCache,
 )
 from tmdbhelper.lib.items.database.details.profiling_factories import ProfiledDetailsLookup
-from tmdbhelper.lib.items.database.details.service import DetailsRequestHandler
+from tmdbhelper.lib.items.database.details.timing import (
+    DetailsBatchTimings,
+    TimedDetailsCoordinator,
+    TimedDetailsRequestHandler,
+)
 
 
 class DetailsTimings:
@@ -114,7 +117,7 @@ class DetailsItemProfile(DetailsTimings):
             }
 
 
-class DetailsBatchReport(DetailsTimings):
+class DetailsBatchReport(DetailsTimings, DetailsBatchTimings):
     folder = 'timer_report/item_details'
 
     def __init__(self, entries, message, started):
@@ -367,7 +370,7 @@ class ProfiledDetailsBackend(DetailsBackend):
         return data
 
 
-class ProfiledDetailsCoordinator(DetailsCoordinator):
+class ProfiledDetailsCoordinator(TimedDetailsCoordinator):
     def __init__(self):
         self.profiles = DetailsProfileRegistry()
         super().__init__(backend_class=lambda: ProfiledDetailsBackend(self.profiles))
@@ -521,7 +524,7 @@ class ProfiledDetailsCoordinator(DetailsCoordinator):
         return record.call('commit_and_finish', super().commit_completed, job, future)
 
 
-class ProfiledDetailsRequestHandler(DetailsRequestHandler):
+class ProfiledDetailsRequestHandler(TimedDetailsRequestHandler):
     def handle(self):
         self.report = None
         self.started = perf_counter()
@@ -549,6 +552,10 @@ class ProfiledDetailsRequestHandler(DetailsRequestHandler):
         self.report.state = 'partial' if response['errors'] else 'ok'
         return response
 
+    def get_batch_timings(self):
+        """The batch report is the coordinator group, so it also holds the stage timings."""
+        return self.report
+
     def get_detail_results(self, entries):
         results = self.report.call('details', super().get_detail_results, entries)
         with self.report.measure('profile_details_size'):
@@ -559,7 +566,7 @@ class ProfiledDetailsRequestHandler(DetailsRequestHandler):
         return self.report.call('sync_wait', super().wait_for_sync, requests, deadline)
 
     def submit_requests(self, requests):
-        return self.report.call('submit', self.server.coordinator.submit, requests, group=self.report)
+        return self.report.call('submit', super().submit_requests, requests)
 
     def get_result(self, future, deadline):
         return self.report.call('result_wait', super().get_result, future, deadline)
