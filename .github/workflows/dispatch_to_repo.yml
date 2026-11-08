@@ -1,10 +1,9 @@
 name: Dispatch to Repo
-on: 
-  push:
-    tags:
-      - "*"
+# Upstream dispatches to its own Kodi repository addon. This fork has no repo
+# addon yet, so every tag push would fail here. Kept manual-only until then.
+on:
   workflow_dispatch:
-    
+
 jobs:
   dispatch:
     runs-on: ubuntu-latest

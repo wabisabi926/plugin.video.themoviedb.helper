@@ -43,7 +43,7 @@ def get_repo_slug():
 
 def get_subjects(start, end):
     revision = f'{start}..{end}' if start else end
-    output = git('log', '--no-merges', '--format=%s', revision)
+    output = git('log', '--no-merges', '--first-parent', '--format=%s', revision)
     return [line.strip() for line in output.splitlines() if line.strip()]
 
 

@@ -65,4 +65,8 @@ target/
 resources/databases/collections.work.db*
 
 # WorkBuddy AI workspace data
+.workbuddy/
 .workbuddy-ai/
+
+# Local scratch space (translation workdirs etc.)
+.wtmp/
