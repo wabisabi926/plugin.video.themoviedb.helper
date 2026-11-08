@@ -80,7 +80,6 @@ class CommonMonitorDetails(CommonContainerAPIs):
         ratings_api.tmdb_api = self.tmdb_api
         ratings_api.tmdb_imagepath = self.tmdb_imagepath
         ratings_api.ftv_api = self.ftv_api
-        ratings_api.douban_api = self.douban_api
         ratings_api.query_database = self.query_database
 
         return ratings_api.all_ratings

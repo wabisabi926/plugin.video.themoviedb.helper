@@ -21,11 +21,6 @@ class CommonContainerAPIs():
         return FanartTV()
 
     @cached_property
-    def douban_api(self):
-        from tmdbhelper.lib.api.douban.api import DoubanAPI
-        return DoubanAPI()
-
-    @cached_property
     def query_database(self):
         from tmdbhelper.lib.query.database.database import FindQueriesDatabase
         return FindQueriesDatabase()
@@ -85,7 +80,6 @@ class CommonRatingsAPIs(CommonContainerAPIs):
 
     def configure_sync(self, sync, season=None, episode=None):
         sync.common_apis.tmdb_api = self.tmdb_api
-        sync.common_apis.douban_api = self.douban_api
         sync.tmdb_type = self.tmdb_type
         sync.tmdb_id = self.tmdb_id
         sync.season = season

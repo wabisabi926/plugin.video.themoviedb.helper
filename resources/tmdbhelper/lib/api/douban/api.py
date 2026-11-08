@@ -2,7 +2,7 @@
 """
 Douban rating API for TMDB Helper.
 Fetches movie rating by IMDb ID via Legacy or Frodo API (load balanced).
-Returns letterboxd_rating / letterboxd_votes for drop-in replacement in skins.
+Returns douban_rating (0-100) and douban_votes for the ratings provider.
 """
 
 import base64
@@ -25,7 +25,7 @@ FRODO_API_KEY = "0dad551ec0f84ed02907ff5c42e8ec70"
 FRODO_API_SECRET = "bf7dddc7c9cfe6f7"
 
 FRODO_RATING_PROBABILITY = 0.5
-REQUEST_TIMEOUT = 10
+REQUEST_TIMEOUT = 4  # Ratings load in parallel, so a long timeout delays the whole batch
 
 USER_AGENTS = [
     "api-client/1 com.douban.frodo/7.22.0.beta9(231) Android/23 product/Mate 40 vendor/HUAWEI model/Mate 40 brand/HUAWEI  rom/android  network/wifi  platform/AndroidPad",

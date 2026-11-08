@@ -19,10 +19,11 @@ class SyncProviderRegistry:
         return self.get_internal_providers()
 
     def get_internal_providers(self):
+        from tmdbhelper.lib.sync.providers.douban import Provider as DoubanProvider
         from tmdbhelper.lib.sync.providers.omdb import Provider as OMDbProvider
         from tmdbhelper.lib.sync.providers.tmdb import Provider as TMDbProvider
         providers = {}
-        for provider_class in (TMDbProvider, OMDbProvider):
+        for provider_class in (TMDbProvider, OMDbProvider, DoubanProvider):
             provider = provider_class()
             SyncProviderLoader({'addonid': provider.addon_id}).validate_provider(provider)
             if provider.is_authorized():

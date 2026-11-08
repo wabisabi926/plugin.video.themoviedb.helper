@@ -109,15 +109,6 @@ class RatingsDict(BaseList):
             return
 
     @cached_property
-    def douban_ratings(self):
-        if not self.common_apis.douban_api or not self.imdb_id:
-            return {}
-        try:
-            return self.common_apis.douban_api.get_ratings(imdb_id=self.imdb_id) or {}
-        except (KeyError, TypeError, IndexError, ValueError):
-            return {}
-
-    @cached_property
     def online_data_mapped(self):
         return self.get_online_data_mapped()
 
@@ -135,13 +126,7 @@ class RatingsDict(BaseList):
         with ParallelThread(self.rating_attribs, get_data_attr) as pt:
             items = pt.queue
 
-        data = {k: v for d in items for k, v in d.items()}
-
-        douban = self.douban_ratings or {}  # run after threads; deterministic override
-        if douban:
-            data.update(douban)
-
-        return data
+        return {k: v for d in items for k, v in d.items()}
 
     def configure_mapped_data(self, data):
         def get_value(k):
