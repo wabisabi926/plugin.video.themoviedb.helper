@@ -99,7 +99,7 @@ def delete_itemtype(mediatype=None, confirmation=True, **kwargs):
 
     if not mediatype:
         choices = [i for i in routes.keys()]
-        x = Dialog().select(get_localized(32765), choices)
+        x = Dialog().select(get_localized(32805), choices)
         if x == -1:
             return
         mediatype = choices[x]
@@ -141,6 +141,10 @@ def delete_itemtype(mediatype=None, confirmation=True, **kwargs):
                 database.execute_sql(statement)
             progress_dialog.update('Vacuuming database...')
             database.execute_sql('VACUUM')
+
+    # Deleted rows can feed other items' assembled metadata, such as a person's appearances.
+    from tmdbhelper.lib.items.database.details.client import DetailsClient
+    DetailsClient().invalidate()
 
     if confirmation:
         head = get_localized(32387).format(mediatype.capitalize())

@@ -3555,40 +3555,70 @@ msgstr "详细"
 
 #: /resources/settings.xml
 msgctxt "#32761"
+msgid "Show expired widget lists for up to"
+msgstr "过期小部件列表最长显示时间"
+
+#: /resources/settings.xml
+msgctxt "#32762"
+msgid "When a widget's TMDb list is older than its normal 6 hour cache, show the saved list straight away and download the new list after the widget has loaded. The new list appears the next time Kodi reloads the widget. Lists for today, such as Airing Today, always wait for new data. Off waits for new data every time."
+msgstr "当小部件的 TMDb 列表超过其正常的 6 小时缓存后，立即显示已保存的列表，并在小部件加载完成后下载新列表。新列表将在 Kodi 下次重新加载该小部件时显示。今日类列表（如“今日播出”）始终等待新数据。“关闭”表示每次都等待新数据。"
+
+#: /resources/settings.xml
+msgctxt "#32763"
+msgid "Off"
+msgstr "关闭"
+
+#: /resources/settings.xml
+msgctxt "#32764"
+msgid "24 hours"
+msgstr "24 小时"
+
+#: /resources/settings.xml
+msgctxt "#32765"
+msgid "48 hours"
+msgstr "48 小时"
+
+#: /resources/settings.xml
+msgctxt "#32766"
+msgid "72 hours"
+msgstr "72 小时"
+
+#: /resources/settings.xml
+msgctxt "#32801"
 msgid "By airdate"
 msgstr "按播出日期"
 
 #: /resources/settings.xml
-msgctxt "#32762"
+msgctxt "#32802"
 msgid "By recently watched"
 msgstr "按最近观看"
 
 #: /resources/settings.xml
-msgctxt "#32763"
+msgctxt "#32803"
 msgid "Today's episodes"
 msgstr "今日剧集"
 
 #: /resources/settings.xml
-msgctxt "#32764"
+msgctxt "#32804"
 msgid "Last week's episodes"
 msgstr "上周剧集"
 
 #: /resources/tmdbhelper/lib/script/method/tmdb.py
-msgctxt "#32765"
+msgctxt "#32805"
 msgid "Choose mediatype"
 msgstr "选择媒体类型"
 
 #: /resources/tmdbhelper/lib/sync/providers/tmdb/actions/userlist.py
-msgctxt "#32766"
+msgctxt "#32806"
 msgid "List name"
 msgstr "列表名称"
 
 #: /resources/tmdbhelper/lib/sync/providers/tmdb/actions/userlist.py
-msgctxt "#32767"
+msgctxt "#32807"
 msgid "List description"
 msgstr "列表描述"
 
 #: /resources/tmdbhelper/lib/script/method/modify_identifier.py
-msgctxt "#32768"
+msgctxt "#32808"
 msgid "TMDb ID"
 msgstr "TMDb ID"
