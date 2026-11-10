@@ -3583,6 +3583,26 @@ msgctxt "#32766"
 msgid "72 hours"
 msgstr "72 小时"
 
+#: /resources/tmdbhelper/lib/items/context_random.py
+msgctxt "#32767"
+msgid "Play random"
+msgstr "随机播放"
+
+#: /resources/settings.xml
+msgctxt "#32768"
+msgid "Show an option in the context menu to play a random movie or episode from a folder, choosing from the current page at each level."
+msgstr "在右键菜单中显示随机播放选项，从文件夹中随机播放一部电影或一集剧集，每一级从当前页面中选择。"
+
+#: /resources/tmdbhelper/lib/script/method/play_random.py
+msgctxt "#32769"
+msgid "No playable items found."
+msgstr "未找到可播放的项目。"
+
+#: /resources/tmdbhelper/lib/items/context_nextepisodes.py
+msgctxt "#32770"
+msgid "Browse next episodes"
+msgstr "浏览下一集"
+
 #: /resources/settings.xml
 msgctxt "#32801"
 msgid "By airdate"
