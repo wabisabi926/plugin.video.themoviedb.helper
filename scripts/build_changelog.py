@@ -16,6 +16,8 @@ CATEGORIES = (
 )
 FALLBACK = '其他'
 SKIP = ('bookmark', 'robot', 'twisted_rightwards_arrows', 'construction')
+SHORTCODE_ALIASES = {'symbols': 'globe_with_meridians'}
+EMOJI_ALIASES = {'🔣': 'globe_with_meridians'}
 DEFAULT_MATCH = 'douban-*'
 
 
@@ -42,19 +44,24 @@ def get_repo_slug():
 
 
 def get_subjects(start, end):
+    """Commits added since the start revision, including those merged from upstream."""
     revision = f'{start}..{end}' if start else end
-    output = git('log', '--no-merges', '--first-parent', '--format=%s', revision)
+    output = git('log', '--no-merges', '--format=%s', revision)
     return [line.strip() for line in output.splitlines() if line.strip()]
 
 
 def split_subject(subject):
-    """Split ':shortcode: description' into (shortcode, description)."""
+    """Split ':shortcode: description' or an emoji prefix into (shortcode, description)."""
     if not subject.startswith(':'):
+        for emoji, shortcode in EMOJI_ALIASES.items():
+            if subject.startswith(emoji):
+                return shortcode, subject[len(emoji):].strip()
         return None, subject
     end = subject.find(':', 1)
     if end < 0:
         return None, subject
-    return subject[1:end], subject[end + 1:].strip()
+    shortcode = subject[1:end]
+    return SHORTCODE_ALIASES.get(shortcode, shortcode), subject[end + 1:].strip()
 
 
 def group_subjects(subjects):
